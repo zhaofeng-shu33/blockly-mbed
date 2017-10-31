@@ -1,4 +1,4 @@
-# USE Blockly to build a simpe mbed C code generator
+# USE Blockly to build a simple mbed C code generator
 
 ## Background
 
@@ -17,8 +17,9 @@ Currently, the following blocks are considered:
 
 ## Build type
 
-The project is started from [BlocklyDuino](https://github.com/BlocklyDuino/BlocklyDuino), but it uses
-out of source build. You need provide "blockly-master/" and "closure-library/" within the same directory to run.    
+The project is started from [BlocklyDuino](https://github.com/BlocklyDuino/BlocklyDuino) and [https://github.com/carlosperate/ardublockly](Ardublockly).
+The index.html favor and index_utility.js wrapper are based on BlocklyDuino while the blocks and generator are based on Ardublockly.
+Notice that because Ardublockly changes some functions of google blockly core,blocks and msg, the project has to use in source build. Still, for developing and debuggin google "closure-library/" is needed but "blockly-master" branch is no longer needed.
 
 ## Reference
  

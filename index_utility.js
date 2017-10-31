@@ -106,8 +106,8 @@ function renderContent() {
  * Restore code blocks from localStorage.
  */
 function restore_blocks() {
-  if ('localStorage' in window && window.localStorage.arduino) {
-    var xml = Blockly.Xml.textToDom(window.localStorage.arduino);
+  if ('localStorage' in window && window.localStorage.mbed) {
+    var xml = Blockly.Xml.textToDom(window.localStorage.mbed);
     Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
   }
 }
