@@ -133,7 +133,7 @@ Blockly.mbed.init = function(workspace) {
  */
 Blockly.mbed.finish = function(code) {
   // Convert the includes, definitions, and functions dictionaries into lists
-  var includes = [], definitions = [], variables = [], functions = [];
+  var includes = ['#define HIGH 1','#define LOW 0','#include "mbed.h"'], definitions = [], variables = [], functions = [];
   for (var name in Blockly.mbed.includes_) {
     includes.push(Blockly.mbed.includes_[name]);
   }
@@ -187,9 +187,9 @@ Blockly.mbed.finish = function(code) {
 
   var allDefs = includes.join('\n') + variables.join('\n') +
       definitions.join('\n') + functions.join('\n\n');
-  var setup = 'void setup() {' + setups.join('\n  ') + '\n}\n\n';
-  var loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + '\n}';
-  return allDefs + setup + loop;
+  //var setup = 'void setup() {' + setups.join('\n  ') + '\n}\n\n';
+  var loop = 'int main() {\n  ' + code.replace(/\n/g, '\n  ') + '\n}';
+  return allDefs + loop;
 };
 
 /**
@@ -386,7 +386,7 @@ Blockly.mbed.getmbedType_ = function(typeBlockly) {
     case Blockly.Types.NULL.typeId:
       return 'void';
     case Blockly.Types.UNDEF.typeId:
-      return 'undefined';
+      return 'undefined';      
     case Blockly.Types.CHILD_BLOCK_MISSING.typeId:
       // If no block connected default to int, change for easier debugging
       //return 'ChildBlockMissing';

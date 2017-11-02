@@ -23,7 +23,7 @@ goog.require('Blockly.mbed');
  Blockly.mbed['time_delay'] = function(block) {
   var delayTime = Blockly.mbed.valueToCode(
       block, 'DELAY_TIME_MILI', Blockly.mbed.ORDER_ATOMIC) || '0';
-  var code = 'delay(' + delayTime + ');\n';
+  var code = 'wait(' + delayTime/1000.0 + ');\n';
   return code;
 };
 

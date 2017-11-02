@@ -24,7 +24,7 @@
   <script src="./blocks/mbed/time.js"></script>
   <script src="./blocks/mbed/tone.js"></script>
   <script src="./blocks/mbed/variables.js"></script>
-
+  <script src="./blocks/mbed/digitalOut.js"></script>
 
   <script src="./generators/mbed.js"></script>
   <script src="./generators/mbed/boards.js"></script>
@@ -43,6 +43,7 @@
   <script src="./generators/mbed/time.js"></script>
   <script src="./generators/mbed/tone.js"></script>
   <script src="./generators/mbed/variables.js"></script>
+  <script src="./generators/mbed/digitalOut.js"></script>
 
   <script type="text/javascript" src="index_utility.js"></script>
 <style>
@@ -406,6 +407,13 @@
     <block type="spi_setup"></block>
     <block type="spi_transfer"></block>
     <block type="spi_transfer_return"></block>
+  </category>
+  <category name="DigitalOut">
+  <block type="mbed_digitalOut">
+  <value name="STATE">
+        <block type="io_highlow"></block>
+  </value>
+  </block>
   </category>
 </xml>
  
