@@ -27,20 +27,23 @@ goog.require('Blockly.mbed');
  */
 Blockly.mbed['servo_write'] = function(block) {
   var pinKey = block.getFieldValue('SERVO_PIN');
-  var servoAngle = Blockly.mbed.valueToCode(
-      block, 'SERVO_ANGLE', Blockly.mbed.ORDER_ATOMIC) || '90';
+  var servoPeriod = Blockly.mbed.valueToCode(
+      block, 'SERVO_PERIOD', Blockly.mbed.ORDER_ATOMIC) || '1';
+  var servoPulseWidth = Blockly.mbed.valueToCode(
+      block, 'SERVO_PULSEWIDTH', Blockly.mbed.ORDER_ATOMIC) || '1';      
   var servoName = 'myServo' + pinKey;
 
   Blockly.mbed.reservePin(
       block, pinKey, Blockly.mbed.PinTypes.SERVO, 'Servo Write');
 
-  Blockly.mbed.addInclude('servo', '#include <Servo.h>');
-  Blockly.mbed.addDeclaration('servo_' + pinKey, 'Servo ' + servoName + ';');
+  //Blockly.mbed.addInclude('servo', '#include <Servo.h>');
+  Blockly.mbed.addDeclaration('servo_' + pinKey, 'PwmOut '+servoName+'(' + pinKey + ');');
 
-  var setupCode = servoName + '.attach(' + pinKey + ');';
-  Blockly.mbed.addSetup('servo_' + pinKey, setupCode, true);
+  //var setupCode = servoName + '.attach(' + pinKey + ');';
+  //Blockly.mbed.addSetup('servo_' + pinKey, setupCode, true);
 
-  var code = servoName + '.write(' + servoAngle + ');\n';
+  var code = servoName + '.period(' + servoPeriod + ');\n';
+  code = code + servoName + '.pulsewidth(' + servoPulseWidth + ');\n';
   return code;
 };
 

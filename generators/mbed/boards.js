@@ -89,7 +89,7 @@ Blockly.mbed.Boards.profiles.uno = {
   analogPins: Blockly.mbed.Boards.generateAnalogIo(0, 5),
   digitalPins: Blockly.mbed.Boards.generateDigitalIo(0, 13).concat(
                    Blockly.mbed.Boards.generateAnalogIo(0, 5)),
-  pwmPins: [['3', '3'], ['5', '5'], ['6', '6'], ['9', '9'], ['10', '10'],
+  pwmPins: [['3', 'LED1'], ['5', '5'], ['6', '6'], ['9', '9'], ['10', '10'],
             ['11', '11']],
   serial: [['serial', 'Serial']],
   serialPins: { Serial: [['RX', '0'], ['TX', '1']] },

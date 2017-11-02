@@ -33,13 +33,12 @@ Blockly.mbed['serial_print'] = function(block) {
   for (var i = 0; i < serialPins.length; i++) {
     Blockly.mbed.reservePin(block, serialPins[i][1],
         Blockly.mbed.PinTypes.SERIAL, 'SERIAL ' + serialPins[i][0]);
-  }
-
+  }  
+  
   if (checkbox_name) {
-    var code = serialId + '.println(' + content + ');\n';
-  } else {
-    var code = serialId + '.print(' + content + ');\n';
+    content=content.slice(0,content.length-1)+'\\n"';
   }
+  var code = serialId + '.printf(' + content + ');\n';  
   return code;
 };
 

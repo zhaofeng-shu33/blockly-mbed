@@ -366,11 +366,16 @@
   <sep></sep>
   <category id="catMotors" name="Motors">
     <block type="servo_write">
-      <value name="SERVO_ANGLE">
+      <value name="SERVO_PERIOD">
         <block type="math_number">
-          <field name="NUM">90</field>
-        </block>
+          <field name="NUM">2</field>
+        </block>        
       </value>
+      <value name="SERVO_PULSEWIDTH">
+        <block type="math_number">
+          <field name="NUM">0.5</field>
+        </block>        
+      </value>      
     </block>
     <block type="servo_read"></block>
     <block type="stepper_config">

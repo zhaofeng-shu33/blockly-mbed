@@ -34,12 +34,16 @@ Blockly.Blocks['servo_write'] = {
         .appendField(new Blockly.FieldDropdown(
             Blockly.mbed.Boards.selected.pwmPins), 'SERVO_PIN');
     this.setInputsInline(false);
-    this.appendValueInput('SERVO_ANGLE')
+    this.appendValueInput('SERVO_PERIOD')
         .setCheck(Blockly.Types.NUMBER.checkList)
-        .appendField(Blockly.Msg.ARD_SERVO_WRITE_TO);
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_SERVO_WRITE_DEG_180);
+        .appendField('with period:');
     this.setInputsInline(true);
+    this.appendValueInput('SERVO_PULSEWIDTH')
+        .setCheck(Blockly.Types.NUMBER.checkList)
+        .appendField('s,and pulsewidth:');
+    this.setInputsInline(true);    
+    this.appendDummyInput()
+        .appendField('s')            
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setTooltip(Blockly.Msg.ARD_SERVO_WRITE_TIP);
