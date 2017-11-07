@@ -116,6 +116,7 @@ function backup_blocks() {
   if ('localStorage' in window) {
     var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
     window.localStorage.setItem('mbed', Blockly.Xml.domToText(xml));
+
   }
 }
 /**

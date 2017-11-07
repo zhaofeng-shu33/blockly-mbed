@@ -27,12 +27,10 @@ goog.require('Blockly.mbed');
  */
 Blockly.mbed['servo_write'] = function(block) {
   var pinKey = block.getFieldValue('SERVO_PIN');
-  var servoPeriod = Blockly.mbed.valueToCode(
-      block, 'SERVO_PERIOD', Blockly.mbed.ORDER_ATOMIC) || '1';
   var servoPulseWidth = Blockly.mbed.valueToCode(
       block, 'SERVO_PULSEWIDTH', Blockly.mbed.ORDER_ATOMIC) || '1';      
   var servoName = 'myServo' + pinKey;
-
+ var timeDomain = block.getFieldValue('TimeDomain');
   Blockly.mbed.reservePin(
       block, pinKey, Blockly.mbed.PinTypes.SERVO, 'Servo Write');
 
@@ -42,8 +40,9 @@ Blockly.mbed['servo_write'] = function(block) {
   //var setupCode = servoName + '.attach(' + pinKey + ');';
   //Blockly.mbed.addSetup('servo_' + pinKey, setupCode, true);
 
-  var code = servoName + '.period(' + servoPeriod + ');\n';
-  code = code + servoName + '.pulsewidth(' + servoPulseWidth + ');\n';
+  var code = servoName + '.period_ms(20);\n';
+  
+  code = code+servoName + '.pulsewidth_'+timeDomain+'(' + servoPulseWidth + ');\n';
   return code;
 };
 

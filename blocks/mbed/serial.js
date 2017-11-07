@@ -31,16 +31,22 @@ Blockly.Blocks['serial_setup'] = {
     this.setHelpUrl('http://mbed.cc/en/Serial/Begin');
     this.setColour(Blockly.Blocks.serial.HUE);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_SERIAL_SETUP)
+        .appendField("Serial Setup RX:")
         .appendField(
             new Blockly.FieldDropdown(
-                Blockly.mbed.Boards.selected.serial), 'SERIAL_ID')
+                Blockly.mbed.Boards.selected.serialPinsRX), 'SERIAL_ID')
+        .appendField("TX:")                        
+        .appendField(
+            new Blockly.FieldDropdown(
+                Blockly.mbed.Boards.selected.serialPinsTX), 'SERIAL_ID_TX')                
         .appendField(Blockly.Msg.ARD_SERIAL_SPEED)
         .appendField(
             new Blockly.FieldDropdown(
                 Blockly.mbed.Boards.selected.serialSpeed), 'SPEED')
         .appendField(Blockly.Msg.ARD_SERIAL_BPS);
     this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);    
     this.setTooltip(Blockly.Msg.ARD_SERIAL_SETUP_TIP);
   },
   /**
@@ -49,41 +55,77 @@ Blockly.Blocks['serial_setup'] = {
    * @this Blockly.Block
    */
   getSerialSetupInstance: function() {
-    return this.getFieldValue('SERIAL_ID');
-  },
+    return Blockly.mbed.Boards.selected.serialMapper[this.getFieldValue('SERIAL_ID')]
+    },
+  // onchange: function() {
+    // if (!this.workspace) {
+        // var serialPin_index=Blockly.mbed.Boards.selected.serialPins.indexOf(serialName);
+        // if(serialPin_index>=0)
+           // Blockly.mbed.Boards.selected.serialPins.splice(serialPin_index,1)    
+        // console.log("Delete!");   
+        // return; }  // Block has been deleted.
+  // },
   /**
    * Updates the content of the the serial related fields.
    * @this Blockly.Block
    */
   updateFields: function() {
     Blockly.mbed.Boards.refreshBlockFieldDropdown(
-        this, 'SERIAL_ID', 'serial');
+        this, 'SERIAL_ID', 'digitalPins');
+    Blockly.mbed.Boards.refreshBlockFieldDropdown(
+        this, 'SERIAL_ID_TX', 'digitalPins');        
     Blockly.mbed.Boards.refreshBlockFieldDropdown(
         this, 'SPEED', 'serialSpeed');
   }
 };
-
+Blockly.Blocks['print_content'] = {
+  init: function() {
+    this.appendValueInput("format_content")
+        .setCheck(null);
+    this.setInputsInline(true);              
+    this.appendValueInput("join_content")
+        .setCheck(null)
+        .appendField("join");
+    this.setInputsInline(false);                      
+    this.setOutput(true, null);
+    this.setColour(Blockly.Blocks.serial.HUE);
+    this.setTooltip("print format extra content");
+    this.setHelpUrl("");
+  }
+};
 Blockly.Blocks['serial_print'] = {
   /**
    * Block for creating a write to serial com function.
    * @this Blockly.Block
    */
   init: function() {
+    // Blockly.mbed.Boards.selected.serialPins=[['invalidSerial','invalidSerial']];
+    // var blocks = Blockly.mainWorkspace.getTopBlocks();
+    // for (var x = 0; x < blocks.length; x++) {
+        // var func = blocks[x].getSerialSetupInstance;    
+        // if (func) {
+           // var setupBlockInstanceName = func.call(blocks[x]);
+           // if(setupBlockInstanceName.startsWith('mySerial')){
+               // Blockly.mbed.Boards.selected.serialPins.push([setupBlockInstanceName,setupBlockInstanceName]);
+           // }
+        // }
+    // }
+      
     this.setHelpUrl('http://www.mbed.cc/en/Serial/Print');
     this.setColour(Blockly.Blocks.serial.HUE);
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown(
-                Blockly.mbed.Boards.selected.serial), 'SERIAL_ID')
-        .appendField(Blockly.Msg.ARD_SERIAL_PRINT);
     this.appendValueInput('CONTENT')
-        .setCheck(Blockly.Types.TEXT.checkList);
-    this.appendDummyInput()
+        .setCheck(Blockly.Types.TEXT.checkList)  
+        .appendField(new Blockly.FieldDropdown(Blockly.mbed.Boards.selected.serialPins), 'SERIAL_Pins')
+        .appendField(Blockly.Msg.ARD_SERIAL_PRINT);
+    this.appendValueInput('CONTENT_STR')
+        .setCheck(null)
         .appendField(new Blockly.FieldCheckbox('TRUE'), 'NEW_LINE')
         .appendField(Blockly.Msg.ARD_SERIAL_PRINT_NEWLINE);
-    this.setInputsInline(true);
+    this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setTooltip(Blockly.Msg.ARD_SERIAL_PRINT_TIP);
+    
   },
   /**
    * Called whenever anything on the workspace changes.
@@ -94,13 +136,12 @@ Blockly.Blocks['serial_print'] = {
   onchange: function() {
     if (!this.workspace) { return; }  // Block has been deleted.
 
-    // Get the Serial instance from this block
-    var thisInstanceName = this.getFieldValue('SERIAL_ID');
-
-    // Iterate through top level blocks to find setup instance for the serial id
-    var blocks = Blockly.mainWorkspace.getTopBlocks();
+    //Get the Serial instance from this block
+    var thisInstanceName = this.getFieldValue('SERIAL_Pins');
     var setupInstancePresent = false;
-    for (var x = 0; x < blocks.length; x++) {
+    //Iterate through top level blocks to find setup instance for the serial id
+    var blocks = Blockly.mainWorkspace.getTopBlocks();
+     for (var x = 0; x < blocks.length; x++) {
       var func = blocks[x].getSerialSetupInstance;
       if (func) {
         var setupBlockInstanceName = func.call(blocks[x]);
@@ -109,7 +150,6 @@ Blockly.Blocks['serial_print'] = {
         }
       }
     }
-
     if (!setupInstancePresent) {
       this.setWarningText(Blockly.Msg.ARD_SERIAL_PRINT_WARN.replace('%1', 
 			    thisInstanceName), 'serial_setup');
@@ -123,6 +163,6 @@ Blockly.Blocks['serial_print'] = {
    */
   updateFields: function() {
     Blockly.mbed.Boards.refreshBlockFieldDropdown(
-        this, 'SERIAL_ID', 'serial');
+        this, 'SERIAL_Pins', 'serialPins');
   }
 };

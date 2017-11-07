@@ -29,21 +29,18 @@ Blockly.Blocks['servo_write'] = {
   init: function() {
     this.setHelpUrl('http://mbed.cc/en/Reference/ServoWrite');
     this.setColour(Blockly.Blocks.servo.HUE);
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_SERVO_WRITE)
-        .appendField(new Blockly.FieldDropdown(
-            Blockly.mbed.Boards.selected.pwmPins), 'SERVO_PIN');
-    this.setInputsInline(false);
-    this.appendValueInput('SERVO_PERIOD')
-        .setCheck(Blockly.Types.NUMBER.checkList)
-        .appendField('with period:');
-    this.setInputsInline(true);
+        
+    // this.appendValueInput('SERVO_PERIOD')
+        // .setCheck(Blockly.Types.NUMBER.checkList)
+        // .appendField('with period:'); period is 20ms
     this.appendValueInput('SERVO_PULSEWIDTH')
-        .setCheck(Blockly.Types.NUMBER.checkList)
-        .appendField('s,and pulsewidth:');
-    this.setInputsInline(true);    
+    .setCheck(Blockly.Types.NUMBER.checkList)
+    .appendField(Blockly.Msg.ARD_SERVO_WRITE)
+    .appendField(new Blockly.FieldDropdown(Blockly.mbed.Boards.selected.pwmPins), 'SERVO_PIN')
+    .appendField('pulsewidth:');
     this.appendDummyInput()
-        .appendField('s')            
+    .appendField(new Blockly.FieldDropdown([['us','us'],['ms','ms']]), 'TimeDomain')    
+    this.setInputsInline(true);                
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setTooltip(Blockly.Msg.ARD_SERVO_WRITE_TIP);

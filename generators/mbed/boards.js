@@ -81,6 +81,41 @@ Blockly.mbed.Boards.duplicateBoardProfile =
 /** Object to contain all mbed board profiles. */
 Blockly.mbed.Boards.profiles = new Object();
 
+
+Blockly.mbed.Boards.profiles.nucleo_f103rb={
+    name: 'NUCLEO F103RB',
+    description: 'mbed NUCLEO standard compatible board',
+    /*GPIO*/
+    digitalPins: [['PC_9','PC_9'],['PB_8','PB_8'],['PB_9','PB_9'],['PA_5','PA_5'],['PA_6','PA_6'],['PA_7','PA_7'],['PB_6','PB_6'],['PC_7','PC_7'],['PA_9','PA_9'],['PA_8','PA_8'],['PB_10','PB_10'],['PB_4','PB_4'],['PB_5','PB_5'],['PB_3','PB_3'],['PA_10','PA_10'],['PA_2','PA_2'],['PA_3','PA_3'],['PC_8','PC_8'],['PC_6','PC_6'],['PC_5','PC_5'],['PA_12','PA_12'],['PA_11','PA_11'],['PB_12','PB_12'],['PB_11','PB_11'],['PB_2','PB_2'],['PB_1','PB_1'],['PB_15','PB_15'],['PB_14','PB_14'],['PB_13','PB_13'],['PC_4','PC_4'],['PC_10','PC_10'],['PC_12','PC_12'],['PA_13','PA_13'],['PA_14','PA_14'],['PA_15','PA_15'],['PB_7','PB_7'],['PC_13','PC_13'],['PC_14','PC_14'],['PC_15','PC_15'],['PF_0','PF_0'],['PF_1','PF_1'],['PC_2','PC_2'],['PC_3','PC_3'],['PC_11','PC_11'],['PD_2','PD_2'],['PA_0','PA_0'],['PA_1','PA_1'],['PA_4','PA_4'],['PB_0','PB_0'],['PC_1','PC_1'],['PC_0','PC_0']],
+    analogPins: Blockly.mbed.Boards.generateAnalogIo(0, 5),    
+    /*not distinguish Timer */
+    pwmPins: [['PC_9','PC_9'],['PA_6','PA_6'],['PA_7','PA_7'],['PC_7','PC_7'],['PA_9','PA_9'],['PA_8','PA_8'],['PB_10','PB_10'],['PB_4','PB_4'],['PB_5','PB_5'],['PB_3','PB_3'],['PA_10','PA_10'],['PA_2','PA_2'],['PA_3','PA_3'],['PC_8','PC_8'],['PC_6','PC_6'],['PA_11','PA_11'],['PB_11','PB_11'],['PB_1','PB_1'],['PB_15','PB_15'],['PB_14','PB_14'],['PB_13','PB_13'],['PC_4','PC_4'],['PA_15','PA_15'],['PA_1','PA_1'],['PB_0','PB_0']],
+    serialPinsRX:[['PA_10','PA_10'],['PA_3','PA_3'],['PB_11','PB_11'],['PB_7','PB_7'],['PC_11','PC_11']],
+    serialPinsTX:[['PC_10','PC_10'],['PB_6','PB_6'],['PA_9','PA_9'],['PB_10','PB_10'],['PA_2','PA_2']],
+    serialPins:[['Serial_1','Serial_1'],['Serial_2','Serial_2'],['Serial_3','Serial_3']],
+    serialMapper:{'PC_10':'Serial_3','PB_7':'Serial_1','PB_7':'Serial_1','PC_11':'Serial_3',
+    'PB_6':'Serial_1','PA_9':'Serial_1','PB_10':'Serial_3','PA_10':'Serial_1','PA_2':'Serial_2',
+    'PA_3':'Serial_2','PB_11':'Serial_3'},
+    serialSpeed: [['9600', '9600'],['300', '300'], ['600', '600'], ['1200', '1200'],
+                ['2400', '2400'], ['4800', '4800'],
+                ['14400', '14400'], ['19200', '19200'], ['28800', '28800'],
+                ['31250', '31250'], ['38400', '38400'], ['57600', '57600'],
+                ['115200', '115200']],
+    spi: [['SPI', 'SPI']],
+    spiPins: { SPI: [['MOSI', '11'], ['MISO', '12'], ['SCK', '13']] },
+    spiClockDivide: [['2 (8MHz)', 'SPI_CLOCK_DIV2'],
+                   ['4 (4MHz)', 'SPI_CLOCK_DIV4'],
+                   ['8 (2MHz)', 'SPI_CLOCK_DIV8'],
+                   ['16 (1MHz)', 'SPI_CLOCK_DIV16'],
+                   ['32 (500KHz)', 'SPI_CLOCK_DIV32'],
+                   ['64 (250KHz)', 'SPI_CLOCK_DIV64'],
+                   ['128 (125KHz)', 'SPI_CLOCK_DIV128']],
+  i2c: [['I2C', 'Wire']],
+  i2cPins: { Wire: [['SDA', 'A4'], ['SCL', 'A5']] },
+  i2cSpeed: [['100kHz', '100000L'], ['400kHz', '400000L']],
+  builtinLed: [['LED_1', 'PA_5']],
+  interrupt: [['interrupt0', '2'], ['interrupt1', '3']]    
+}
 /** mbed Uno board profile. */
 Blockly.mbed.Boards.profiles.uno = {
   name: 'mbed Uno',
@@ -92,7 +127,7 @@ Blockly.mbed.Boards.profiles.uno = {
   pwmPins: [['3', 'LED1'], ['5', '5'], ['6', '6'], ['9', '9'], ['10', '10'],
             ['11', '11']],
   serial: [['serial', 'Serial']],
-  serialPins: { Serial: [['RX', '0'], ['TX', '1']] },
+  serialPins: [['invalidSerial','invalidSerial']], //[myserial_RX_1_TX_1,myserial_RX_2_TX_2]
   serialSpeed: [['300', '300'], ['600', '600'], ['1200', '1200'],
                 ['2400', '2400'], ['4800', '4800'], ['9600', '9600'],
                 ['14400', '14400'], ['19200', '19200'], ['28800', '28800'],
@@ -310,7 +345,7 @@ Blockly.mbed.Boards.profiles.esp8266_wemos_d1 = {
 };
 
 /** Set default profile to mbed standard-compatible board */
-Blockly.mbed.Boards.selected = Blockly.mbed.Boards.profiles.uno;
+Blockly.mbed.Boards.selected = Blockly.mbed.Boards.profiles.nucleo_f103rb;
 
 /**
  * Changes the mbed board profile selected, which trigger a refresh of the

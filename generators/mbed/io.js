@@ -29,10 +29,10 @@ Blockly.mbed['io_digitalwrite'] = function(block) {
   Blockly.mbed.reservePin(
       block, pin, Blockly.mbed.PinTypes.OUTPUT, 'Digital Write');
 
-  var pinSetupCode = 'pinMode(' + pin + ', OUTPUT);';
-  Blockly.mbed.addSetup('io_' + pin, pinSetupCode, false);
-
-  var code = 'digitalWrite(' + pin + ', ' + stateOutput + ');\n';
+  var digitalOut_Name = 'myDigitalOut'+ pin;
+  Blockly.mbed.addDeclaration(digitalOut_Name , 'DigitalOut '+digitalOut_Name+'(' + pin + ');');
+  
+  var code = digitalOut_Name+'.write(' + stateOutput + ');\n';
   return code;
 };
 
@@ -48,10 +48,10 @@ Blockly.mbed['io_digitalread'] = function(block) {
   Blockly.mbed.reservePin(
       block, pin, Blockly.mbed.PinTypes.INPUT, 'Digital Read');
 
-  var pinSetupCode = 'pinMode(' + pin + ', INPUT);';
-  Blockly.mbed.addSetup('io_' + pin, pinSetupCode, false);
+  var digitalIn_Name = 'myDigitalIn'+ pin;
+  Blockly.mbed.addDeclaration(digitalIn_Name , 'DigitalIn '+digitalIn_Name+'(' + pin + ');');
 
-  var code = 'digitalRead(' + pin + ')';
+  var code = digitalIn_Name+'.read()';
   return [code, Blockly.mbed.ORDER_ATOMIC];
 };
 
@@ -70,10 +70,10 @@ Blockly.mbed['io_builtin_led'] = function(block) {
   Blockly.mbed.reservePin(
       block, pin, Blockly.mbed.PinTypes.OUTPUT, 'Set LED');
 
-  var pinSetupCode = 'pinMode(' + pin + ', OUTPUT);';
-  Blockly.mbed.addSetup('io_' + pin, pinSetupCode, false);
-
-  var code = 'digitalWrite(' + pin + ', ' + stateOutput + ');\n';
+  var digitalOut_Name = 'myDigitalOut'+ pin;
+  Blockly.mbed.addDeclaration(digitalOut_Name , 'DigitalOut '+digitalOut_Name+'(' + pin + ');');
+  
+  var code = digitalOut_Name+'.write(' + stateOutput + ');\n';
   return code;
 };
 
