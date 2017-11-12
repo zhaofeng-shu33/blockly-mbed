@@ -1,0 +1,60 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="variables_set" id=",[_w-WD4VrP7SSVF7I8e" x="13" y="13">
+    <field name="VAR">item</field>
+    <value name="VALUE">
+      <block type="math_number" id="3#?QYxWa;xNubZZ4bcA=">
+        <field name="NUM">12</field>
+      </block>
+    </value>
+  </block>
+  <block type="serial_setup" id="},@0`ITKKEyR7]8-!Tts" x="13" y="38">
+    <field name="SERIAL_ID">PB_11</field>
+    <field name="SERIAL_ID_TX">PB_10</field>
+    <field name="SPEED">9600</field>
+    <next>
+      <block type="serial_print" id="B.vfh7pS^;DZ19GXRX{@">
+        <field name="SERIAL_Pins">Serial_3</field>
+        <field name="NEW_LINE">TRUE</field>
+      </block>
+    </next>
+  </block>
+  <block type="serial_setup" id="uU,YZ-R5M,`7-zuzl@l." x="13" y="138">
+    <field name="SERIAL_ID">PA_3</field>
+    <field name="SERIAL_ID_TX">PA_2</field>
+    <field name="SPEED">19200</field>
+    <next>
+      <block type="serial_print" id="U4`u%9HCG~rg%5M[,ijE">
+        <field name="SERIAL_Pins">Serial_2</field>
+        <field name="NEW_LINE">TRUE</field>
+        <value name="CONTENT">
+          <block type="text" id="[A*QC^zvZ@bEQ)SSFn^?">
+            <field name="TEXT">12.3 %d %f %s</field>
+          </block>
+        </value>
+        <value name="CONTENT_STR">
+          <block type="print_content" id="31x@zi1UwvFnNL|HdYKz">
+            <value name="format_content">
+              <block type="variables_get" id="A?N;kk0N/k*Kiw(Q;[!U">
+                <field name="VAR">item</field>
+              </block>
+            </value>
+            <value name="join_content">
+              <block type="print_content" id="h|;X=m^5d?;xW9|F9Wod">
+                <value name="format_content">
+                  <block type="math_number" id="I?w:(dn-I=_P@+4tCJ],">
+                    <field name="NUM">1.1</field>
+                  </block>
+                </value>
+                <value name="join_content">
+                  <block type="text" id="OU[Qp.LONa`8pp6)GG}4">
+                    <field name="TEXT">aaa</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </next>
+  </block>
+</xml>

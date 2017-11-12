@@ -188,7 +188,7 @@ Blockly.Blocks['io_highlow'] = {
   },
   /** @return {!string} The type of return value for the block, an integer. */
   getBlockType: function() {
-    return Blockly.Types.BOOLEAN;
+    return Blockly.Types.NUMBER;
   }
 };
 

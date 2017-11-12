@@ -26,6 +26,13 @@ Blockly.mbed['procedures_defreturn'] = function(block) {
   var funcName = Blockly.mbed.variableDB_.getName(
       block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
   var branch = Blockly.mbed.statementToCode(block, 'STACK');
+  var bindPin = block.getFieldValue('InterruptPin') || '';
+  var InterruptInSetupCode=null;
+  if(bindPin){
+      var InterruptIn_instance_name='InterruptIn_' + funcName;
+      Blockly.mbed.addDeclaration(InterruptIn_instance_name, 'InterruptIn '+InterruptIn_instance_name+'(' +bindPin + ');');
+      InterruptInSetupCode = InterruptIn_instance_name + '.rise(&' + funcName + ');';
+  }
   if (Blockly.mbed.STATEMENT_PREFIX) {
     branch = Blockly.mbed.prefixLines(
         Blockly.mbed.STATEMENT_PREFIX.replace(/%1/g,
@@ -63,7 +70,7 @@ Blockly.mbed['procedures_defreturn'] = function(block) {
       branch + returnValue + '}';
   code = Blockly.mbed.scrub_(block, code);
   Blockly.mbed.userFunctions_[funcName] = code;
-  return null;
+  return InterruptInSetupCode;
 };
 
 /**
@@ -74,7 +81,7 @@ Blockly.mbed['procedures_defreturn'] = function(block) {
  */
 Blockly.mbed['procedures_defnoreturn'] =
     Blockly.mbed['procedures_defreturn'];
-
+Blockly.mbed['InterruptIn']=Blockly.mbed['procedures_defreturn'];
 /**
  * Code generator to create a function call with a return value.
  * mbed code: loop { functionname() }
