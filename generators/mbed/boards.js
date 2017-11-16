@@ -91,7 +91,7 @@ Blockly.mbed.Boards.profiles.nucleo_f103rb={
     /*not distinguish Timer */
     pwmPins: [['PC_9','PC_9'],['PA_6','PA_6'],['PA_7','PA_7'],['PC_7','PC_7'],['PA_9','PA_9'],['PA_8','PA_8'],['PB_10','PB_10'],['PB_4','PB_4'],['PB_5','PB_5'],['PB_3','PB_3'],['PA_10','PA_10'],['PA_2','PA_2'],['PA_3','PA_3'],['PC_8','PC_8'],['PC_6','PC_6'],['PA_11','PA_11'],['PB_11','PB_11'],['PB_1','PB_1'],['PB_15','PB_15'],['PB_14','PB_14'],['PB_13','PB_13'],['PC_4','PC_4'],['PA_15','PA_15'],['PA_1','PA_1'],['PB_0','PB_0']],
     serialPinsRX:[['PA_10','PA_10'],['PA_3','PA_3'],['PB_11','PB_11'],['PB_7','PB_7'],['PC_11','PC_11']],
-    serialPinsTX:[['PC_10','PC_10'],['PB_6','PB_6'],['PA_9','PA_9'],['PB_10','PB_10'],['PA_2','PA_2']],
+    serialPinsTX:[['PB_6','PB_6'],['PC_10','PC_10'],['PA_9','PA_9'],['PB_10','PB_10'],['PA_2','PA_2']],
     serialPins:[['Serial_1','Serial_1'],['Serial_2','Serial_2'],['Serial_3','Serial_3']],
     serialMapper:{'PC_10':'Serial_3','PB_7':'Serial_1','PB_7':'Serial_1','PC_11':'Serial_3',
     'PB_6':'Serial_1','PA_9':'Serial_1','PB_10':'Serial_3','PA_10':'Serial_1','PA_2':'Serial_2',

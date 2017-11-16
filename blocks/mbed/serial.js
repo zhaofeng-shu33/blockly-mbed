@@ -93,6 +93,22 @@ Blockly.Blocks['print_content'] = {
     this.setHelpUrl("");
   }
 };
+Blockly.Blocks['serial_attach'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown(Blockly.mbed.Boards.selected.serialPins), 'SERIAL_Pins')
+        .appendField("attach");
+    this.appendStatementInput("function_body")
+        .setCheck(null);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(Blockly.Blocks.serial.HUE);
+    this.setTooltip("attach an interrupt function to configured serial");
+    this.setHelpUrl("");
+    this.arguments_ = [];
+  }
+};
 Blockly.Blocks['serial_print'] = {
   /**
    * Block for creating a write to serial com function.
