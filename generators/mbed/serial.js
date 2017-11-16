@@ -69,6 +69,11 @@ Blockly.mbed['serial_setup'] = function(block) {
   var serialId_TX = block.getFieldValue('SERIAL_ID_TX');
   var serialRX=Blockly.mbed.Boards.selected.serialMapper[serialId];
   var serialTX=Blockly.mbed.Boards.selected.serialMapper[serialId_TX];
+//  if(serialRX==serialTX)
+//     block.setWarningText(null,'serial_rx_tx_mismatch');
+//  else
+//     block.setWarningText(serialRX+" mismatches "+serialTX,'serial_rx_tx_mismatch');
+      
   console.assert(serialRX==serialTX);
   var serialName = serialRX;
   var serialSpeed = block.getFieldValue('SPEED');

@@ -27,21 +27,29 @@ goog.require('Blockly.mbed');
  */
 Blockly.mbed['spi_setup'] = function(block) {
   var spiId = block.getFieldValue('SPI_ID');
-  var spiShift = block.getFieldValue('SPI_SHIFT_ORDER');
-  var spiClockDivide = block.getFieldValue('SPI_CLOCK_DIVIDE');
-  var spiMode = block.getFieldValue('SPI_MODE');
-
-  Blockly.mbed.addInclude('spi', '#include <SPI.h>');
-  Blockly.mbed.addSetup('spi_order',
-      spiId + '.setBitOrder(' + spiShift + ');', true);
-  Blockly.mbed.addSetup('spi_mode',
-      spiId + '.setDataMode(' + spiMode + ');', true);
-  Blockly.mbed.addSetup('spi_div',
-      spiId + '.setClockDivider(' + spiClockDivide + ');', true);
-  Blockly.mbed.addSetup('spi_begin',
-      spiId + '.begin();', true);
-
-  return '';
+  var spiFrequency = Blockly.mbed.valueToCode(block, 'frequency', Blockly.mbed.ORDER_ATOMIC) || 1;
+  var spiMode = block.getFieldValue('SPI_MODE');  
+  var cs = block.getFieldValue('PIN');  
+  var spi_pins=[];
+  if(spiId=='SPI1' && block.getFieldValue('SPI1_ID')=='PB_3,PB_4,PB_5')
+      spi_pins=Blockly.mbed.Boards.selected.spi1_alternative;
+  else
+      spi_pins=Blockly.mbed.Boards.selected.spiPins[spiId];
+  var spiName='spi_' + spiId;
+  var digitalOut_Name = 'myDigitalOut'+ cs;
+  // SPI spi(p5, p6, p7);  
+  // mosi, miso, sclk 
+  Blockly.mbed.addDeclaration(spiName, 'SPI '+spiName+'(' + spi_pins['MOSI']+','+spi_pins['MISO']+','+spi_pins['SCK'] + ');');  
+  Blockly.mbed.addDeclaration(digitalOut_Name , 'DigitalOut '+digitalOut_Name+'(' + cs + ');');
+  
+  var code='';
+  //deselect
+  //code = digitalOut_Name+'.write(1);\n';
+  code +=spiName+'.frequency('+spiFrequency*100000+');\n';
+  code +=spiName+'.format(8,'+spiMode+');\n';
+  //select
+  code = digitalOut_Name+'.write(0);\n';    
+  return code;
 };
 
 /**
@@ -58,38 +66,31 @@ Blockly.mbed['spi_setup'] = function(block) {
  */
 Blockly.mbed['spi_transfer'] = function(block) {
   var spiId = block.getFieldValue('SPI_ID');
-  var spiSs = block.getFieldValue('SPI_SS');
+  //var spiSs = block.getFieldValue('SPI_SS');
   var spiData = Blockly.mbed.valueToCode(
       block, 'SPI_DATA', Blockly.mbed.ORDER_ATOMIC) || '0';
 
-  Blockly.mbed.addInclude('spi', '#include <SPI.h>');
-  Blockly.mbed.addSetup('spi_begin', spiId + '.begin();', false);
 
   // Reserve SPI pins MOSI, MISO, and SCK
-  var spiPins = Blockly.mbed.Boards.selected.spiPins[spiId];
-  for (var i = 0; i < spiPins.length; i++) {
-    Blockly.mbed.reservePin(block, spiPins[i][1],
-        Blockly.mbed.PinTypes.SPI, 'SPI ' + spiPins[i][0]);
-  }
+  // var spiPins = Blockly.mbed.Boards.selected.spiPins[spiId];
+  // for (var i = 0; i < spiPins.length; i++) {
+    // Blockly.mbed.reservePin(block, spiPins[i][1],
+        // Blockly.mbed.PinTypes.SPI, 'SPI ' + spiPins[i][0]);
+  // }
 
   // Configure the Slave Select as a normal output if a pin is used
-  if (spiSs !== 'none') {
-    Blockly.mbed.reservePin(
-        block, spiSs, Blockly.mbed.PinTypes.OUTPUT, 'SPI Slave pin');
-    var setupCode = 'pinMode(' + spiSs + ', OUTPUT);';
-    Blockly.mbed.addSetup('io_' + spiSs, setupCode, false);
-  } // else means the SS pin is always set for the device
+  // if (spiSs !== 'none') {
+    // Blockly.mbed.reservePin(
+        // block, spiSs, Blockly.mbed.PinTypes.OUTPUT, 'SPI Slave pin');
+    // var setupCode = 'pinMode(' + spiSs + ', OUTPUT);';
+    // Blockly.mbed.addSetup('io_' + spiSs, setupCode, false);
+  // } 
+  // else means the SS pin is always set for the device
 
   // Add the code, but only use a SS pin if one is selected
-  var code = [];
-  if (spiSs !== 'none') {
-    code.push('digitalWrite(' + spiSs + ', HIGH);');
-  }
-  code.push(spiId + '.transfer(' + spiData + ');');
-  if (spiSs !== 'none') {
-    code.push('digitalWrite(' + spiSs + ', LOW);');
-  }
-  return code.join('\n') + '\n';
+  var spiName='spi_' + spiId;
+  var code = spiName+'.write('+spiData+');\n';
+  return code;
 };
 
 /**

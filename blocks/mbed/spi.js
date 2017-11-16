@@ -27,33 +27,32 @@ Blockly.Blocks['spi_setup'] = {
   init: function() {
     this.setHelpUrl('http://mbed.cc/en/Reference/SPI');
     this.setColour(Blockly.Blocks.spi.HUE);
-    this.appendDummyInput()
+    var dropdown = new Blockly.FieldDropdown(
+      Blockly.mbed.Boards.selected.spi, function(option) {
+      var SPI1_CHOICE = (option == 'SPI1');
+      this.sourceBlock_.updateShape_(SPI1_CHOICE);
+    });     
+    this.appendDummyInput("Select")
         .appendField(Blockly.Msg.ARD_SPI_SETUP)
-        .appendField(new Blockly.FieldDropdown(
-                Blockly.mbed.Boards.selected.spi), 'SPI_ID')
-        .appendField(Blockly.Msg.ARD_SPI_SETUP_CONF);
+        .appendField(dropdown, 'SPI_ID'); 
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_SPI_SETUP_SHIFT)
-        .appendField(
-            new Blockly.FieldDropdown(
-                [[Blockly.Msg.ARD_SPI_SETUP_MSBFIRST, 'MSBFIRST'],
-		[Blockly.Msg.ARD_SPI_SETUP_LSBFIRST, 'LSBFIRST']]),
-            'SPI_SHIFT_ORDER');
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_SPI_SETUP_DIVIDE)
-        .appendField(
-          new Blockly.FieldDropdown(
-              Blockly.mbed.Boards.selected.spiClockDivide),
-          'SPI_CLOCK_DIVIDE');
+        .appendField("CS")
+        .appendField(new Blockly.FieldDropdown(Blockly.mbed.Boards.selected.digitalPins), 'PIN');        
+    this.appendValueInput("frequency")
+        .setCheck("Number")
+        .appendField("Frequency(MHz)");
     this.appendDummyInput()
         .appendField(Blockly.Msg.ARD_SPI_SETUP_MODE)
         .appendField(
             new Blockly.FieldDropdown(
-                [[Blockly.Msg.ARD_SPI_SETUP_MODE0, 'SPI_MODE0'],
-                 [Blockly.Msg.ARD_SPI_SETUP_MODE1, 'SPI_MODE1'],
-                 [Blockly.Msg.ARD_SPI_SETUP_MODE2, 'SPI_MODE2'],
-                 [Blockly.Msg.ARD_SPI_SETUP_MODE3, 'SPI_MODE3']]),
+                [[Blockly.Msg.ARD_SPI_SETUP_MODE0, '0'],
+                 [Blockly.Msg.ARD_SPI_SETUP_MODE1, '1'],
+                 [Blockly.Msg.ARD_SPI_SETUP_MODE2, '2'],
+                 [Blockly.Msg.ARD_SPI_SETUP_MODE3, '3']]),
             'SPI_MODE');
+    this.setInputsInline(false);    
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);    
     this.setTooltip(Blockly.Msg.ARD_SPI_SETUP_TIP);
   },
   /**
@@ -73,7 +72,31 @@ Blockly.Blocks['spi_setup'] = {
         this, 'SPI_ID', 'spi');
     Blockly.mbed.Boards.refreshBlockFieldDropdown(
         this, 'SPI_CLOCK_DIVIDE', 'spiClockDivide');
-  }
+  },
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var SPI_CHOISE = (this.getFieldValue('SPI_ID') == 'SPI1');
+    container.setAttribute('SPI_CHOISE', SPI_CHOISE);
+    return container;
+  },  
+  domToMutation: function(xmlElement) {
+    var SPI_CHOISE = (xmlElement.getAttribute('SPI_CHOISE') == 'true');
+    this.updateShape_(SPI_CHOISE);
+  },  
+  updateShape_: function(SPI_CHOISE) {
+    // Add or remove a Dummy Input.
+    var SelectInput = this.getInput("SPI1_CHOICE");
+    if (SPI_CHOISE) {
+      if (!SelectInput) {
+          this.appendDummyInput("SPI1_CHOICE")
+          .appendField("SPI1 ID")
+          .appendField(new Blockly.FieldDropdown(
+                Blockly.mbed.Boards.selected.spi1_choice), 'SPI1_ID')
+      }
+    } else if (SelectInput) {
+      this.removeInput("SPI1_CHOICE");  
+    }
+  },  
 };
 
 Blockly.Blocks['spi_transfer'] = {
@@ -95,10 +118,11 @@ Blockly.Blocks['spi_transfer'] = {
     this.appendValueInput('SPI_DATA')
         .setCheck(Blockly.Types.NUMBER.checkList)
         .appendField(Blockly.Msg.ARD_SPI_TRANS_VAL);
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_SPI_TRANS_SLAVE)
-        .appendField(
-            new Blockly.FieldDropdown(digitalPinsExtended), 'SPI_SS');
+    // this.appendDummyInput()
+        // .appendField(Blockly.Msg.ARD_SPI_TRANS_SLAVE)
+        // .appendField(
+            // new Blockly.FieldDropdown(digitalPinsExtended), 'SPI_SS');
+            //we only consider the microcontroller as master mode
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);

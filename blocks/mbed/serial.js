@@ -57,14 +57,19 @@ Blockly.Blocks['serial_setup'] = {
   getSerialSetupInstance: function() {
     return Blockly.mbed.Boards.selected.serialMapper[this.getFieldValue('SERIAL_ID')]
     },
-  // onchange: function() {
-    // if (!this.workspace) {
-        // var serialPin_index=Blockly.mbed.Boards.selected.serialPins.indexOf(serialName);
-        // if(serialPin_index>=0)
-           // Blockly.mbed.Boards.selected.serialPins.splice(serialPin_index,1)    
-        // console.log("Delete!");   
-        // return; }  // Block has been deleted.
-  // },
+  onchange: function() {
+    if (!this.workspace) { return; }  // Block has been deleted.
+
+    //Get the Serial instance from this block
+    var serialId = this.getFieldValue('SERIAL_ID');
+    var serialId_TX = this.getFieldValue('SERIAL_ID_TX');
+    var serialRX=Blockly.mbed.Boards.selected.serialMapper[serialId];
+    var serialTX=Blockly.mbed.Boards.selected.serialMapper[serialId_TX];
+    if(serialRX==serialTX)
+       this.setWarningText(null,'serial_rx_tx_mismatch');
+    else
+       this.setWarningText(serialRX+" mismatches "+serialTX,'serial_rx_tx_mismatch');
+   },
   /**
    * Updates the content of the the serial related fields.
    * @this Blockly.Block
