@@ -9,17 +9,36 @@ a mbed C code generator to help students prototyping their ideas more quickly.
 
 Currently, the following blocks are considered:
 
-   * LED
+   * GPIO
    * Servo
-   * Motor
-   * Accelerator Sensor
-   * LCD
+   * Serial
+   * SPI
 
-## Build type
+## Developer Build
 
-The project is started from [BlocklyDuino](https://github.com/BlocklyDuino/BlocklyDuino) and [https://github.com/carlosperate/ardublockly](Ardublockly).
-The index.html favor and index_utility.js wrapper are based on BlocklyDuino while the blocks and generator are based on Ardublockly.
-Notice that because Ardublockly changes some functions of google blockly core,blocks and msg, the project has to use in source build. Still, for developing and debuggin google "closure-library/" is needed but "blockly-master" branch is no longer needed.
+The project is started from [BlocklyDuino](https://github.com/BlocklyDuino/BlocklyDuino) and [Ardublockly](https://github.com/carlosperate/ardublockly).
+
+The index.html favor and index_utility.js wrapper are based on BlocklyDuino while the blocks and the generator is based on Ardublockly.
+
+Notice that because Ardublockly changes some functions of google blockly core, blocks and msg, the project has to use in source build. 
+
+Still, for developing and debugging, google "closure-library/" is needed but "blockly-master" branch is no longer needed.
+
+## Release Build
+
+We can compress the files in blocks/*, generators/* and use blockly_compressed.js. 
+
+Therefore, no depedency on closure-library is needed and the browser can read only a few javascript files to make everything work.
+
+Currently, I use nodejs "google-closure-compiler-js" modules to compress these files.
+
+use node_compressed_language.js to build "node_compressed_language.js" from msg/*
+
+use node_compressed_block.js to build "node_compressed_block.js" from blocks/*
+
+use node_compressed_generator.js to build "node_compressed_generator.js" from generator/*
+
+index.html is the release version of mbed-blockly.
 
 ## Reference
  

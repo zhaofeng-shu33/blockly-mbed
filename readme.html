@@ -1,5 +1,5 @@
 <h1>
-<a id="user-content-use-blockly-to-build-a-simpe-mbed-c-code-generator" class="anchor" href="#use-blockly-to-build-a-simpe-mbed-c-code-generator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>USE Blockly to build a simpe mbed C code generator</h1>
+<a id="user-content-use-blockly-to-build-a-simple-mbed-c-code-generator" class="anchor" href="#use-blockly-to-build-a-simple-mbed-c-code-generator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>USE Blockly to build a simple mbed C code generator</h1>
 <h2>
 <a id="user-content-background" class="anchor" href="#background" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Background</h2>
 <p>Graphical Code generator has been a trend nowadays. There is Arduino code generator with Blockly. This project tries to build
@@ -8,17 +8,18 @@ a mbed C code generator to help students prototyping their ideas more quickly.</
 <a id="user-content-ambition" class="anchor" href="#ambition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ambition</h2>
 <p>Currently, the following blocks are considered:</p>
 <ul>
-<li>LED</li>
+<li>GPIO</li>
 <li>Servo</li>
-<li>Motor</li>
-<li>Accelerator Sensor</li>
-<li>LCD</li>
+<li>Serial</li>
+<li>SPI</li>
 </ul>
 <h2>
 <a id="user-content-build-type" class="anchor" href="#build-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Build type</h2>
-<p>The project is started from <a href="https://github.com/BlocklyDuino/BlocklyDuino">BlocklyDuino</a>, but it uses
-out of source build. You need provide "blockly-master/" and "closure-library/" within the same directory to run.</p>
+<p>The project is started from <a href="https://github.com/BlocklyDuino/BlocklyDuino">BlocklyDuino</a> and <a href="https://github.com/carlosperate/ardublockly">Ardublockly</a>.</p>
+<p>The index.html favor and index_utility.js wrapper are based on BlocklyDuino while the blocks and the generator is based on Ardublockly.</p>
+<p>Notice that because Ardublockly changes some functions of google blockly core, blocks and msg, the project has to use in source build.</p>
+<p>Still, for developing and debugging, google "closure-library/" is needed but "blockly-master" branch is no longer needed.</p>
 <h2>
 <a id="user-content-reference" class="anchor" href="#reference" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Reference</h2>
-<p><a href="https://os.mbed.com/platforms/ST-Nucleo-F103RB/">https://os.mbed.com/platforms/ST-Nucleo-F103RB/</a></p>
+<p><a href="https://os.mbed.com/platforms/ST-Nucleo-F103RB/" rel="nofollow">https://os.mbed.com/platforms/ST-Nucleo-F103RB/</a></p>
 

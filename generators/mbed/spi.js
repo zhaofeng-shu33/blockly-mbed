@@ -48,7 +48,7 @@ Blockly.mbed['spi_setup'] = function(block) {
   code +=spiName+'.frequency('+spiFrequency*100000+');\n';
   code +=spiName+'.format(8,'+spiMode+');\n';
   //select
-  code = digitalOut_Name+'.write(0);\n';    
+  code += digitalOut_Name+'.write(0);\n';    
   return code;
 };
 
