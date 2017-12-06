@@ -122,7 +122,7 @@ Blockly.mbed['serial_attach'] = function(block) {
   returnType = Blockly.mbed.getmbedType_(returnType);
 
   // Construct code
-  var functionName='serialName'+'_interrupt_fun';
+  var functionName=serialName+'_interrupt_fun';
   var code = returnType + ' ' + functionName + '(' + args.join(', ') + ') {\n' +
       branch + returnValue + '}';
   code = Blockly.mbed.scrub_(block, code);
