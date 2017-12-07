@@ -34,6 +34,7 @@ Blockly.mbed.Boards['generateAnalogIo'] = function(pinStart, pinEnd) {
   return analogIo;
 };
 
+//STM32F103
 Blockly.mbed.Boards['profiles']['nucleo_f103rb']={
     name: 'NUCLEO F103RB',
     description: 'mbed NUCLEO standard compatible board',

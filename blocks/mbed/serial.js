@@ -45,6 +45,9 @@ Blockly.Blocks['serial_setup'] = {
                 Blockly.mbed.Boards.selected.serialSpeed), 'SPEED')
         .appendField(Blockly.Msg.ARD_SERIAL_BPS);
     this.setInputsInline(true);
+    /*  previous statement can not be revised to true, otherwise this block-svg is not top-level block and
+        it is very hard to detect whether the serial is initialized or not
+    */
     this.setPreviousStatement(false, null);
     this.setNextStatement(true, null);    
     this.setTooltip(Blockly.Msg.ARD_SERIAL_SETUP_TIP);
@@ -124,18 +127,6 @@ Blockly.Blocks['serial_print'] = {
    * @this Blockly.Block
    */
   init: function() {
-    // Blockly.mbed.Boards.selected.serialPins=[['invalidSerial','invalidSerial']];
-    // var blocks = Blockly.mainWorkspace.getTopBlocks();
-    // for (var x = 0; x < blocks.length; x++) {
-        // var func = blocks[x].getSerialSetupInstance;    
-        // if (func) {
-           // var setupBlockInstanceName = func.call(blocks[x]);
-           // if(setupBlockInstanceName.startsWith('mySerial')){
-               // Blockly.mbed.Boards.selected.serialPins.push([setupBlockInstanceName,setupBlockInstanceName]);
-           // }
-        // }
-    // }
-      
     this.setHelpUrl('http://www.mbed.cc/en/Serial/Print');
     this.setColour(Blockly.Blocks.serial.HUE);
     this.appendValueInput('CONTENT')
@@ -150,6 +141,60 @@ Blockly.Blocks['serial_print'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setTooltip(Blockly.Msg.ARD_SERIAL_PRINT_TIP);
+    
+  },
+  /**
+   * Called whenever anything on the workspace changes.
+   * It checks the instances of serial_setup and attaches a warning to this
+   * block if not valid data is found.
+   * @this Blockly.Block
+   */
+  onchange: function() {
+    if (!this.workspace) { return; }  // Block has been deleted.
+
+    //Get the Serial instance from this block
+    var thisInstanceName = this.getFieldValue('SERIAL_Pins');
+    var setupInstancePresent = false;
+    //Iterate through top level blocks to find setup instance for the serial id
+    var blocks = Blockly.mainWorkspace.getTopBlocks();
+     for (var x = 0; x < blocks.length; x++) {
+      var func = blocks[x].getSerialSetupInstance;
+      if (func) {
+        var setupBlockInstanceName = func.call(blocks[x]);
+        if (thisInstanceName == setupBlockInstanceName) {
+          setupInstancePresent = true;
+        }
+      }
+    }
+    if (!setupInstancePresent) {
+      this.setWarningText(Blockly.Msg.ARD_SERIAL_PRINT_WARN.replace('%1', 
+			    thisInstanceName), 'serial_setup');
+    } else {
+      this.setWarningText(null, 'serial_setup');
+    }
+  },
+  /**
+   * Updates the content of the the serial related fields.
+   * @this Blockly.Block
+   */
+  updateFields: function() {
+    Blockly.mbed.Boards.refreshBlockFieldDropdown(
+        this, 'SERIAL_Pins', 'serialPins');
+  }
+};
+Blockly.Blocks['serial_getc'] = {
+  /**
+   * Block for creating a write to serial com function.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setOutput(true, null);
+    this.setColour(Blockly.Blocks.serial.HUE);
+    this.appendDummyInput('one_character')
+        .appendField(new Blockly.FieldDropdown(Blockly.mbed.Boards.selected.serialPins), 'SERIAL_Pins')
+        .appendField("getc");
+    this.setInputsInline(false);
+    this.setTooltip("Get one character from serial");
     
   },
   /**
