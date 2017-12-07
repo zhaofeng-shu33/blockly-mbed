@@ -31,7 +31,7 @@ Blockly.Blocks['serial_setup'] = {
     this.setHelpUrl('http://mbed.cc/en/Serial/Begin');
     this.setColour(Blockly.Blocks.serial.HUE);
     this.appendDummyInput()
-        .appendField("Serial Setup RX:")
+        .appendField("Serial Setup RX:",'SERIAL_NAME')
         .appendField(
             new Blockly.FieldDropdown(
                 Blockly.mbed.Boards.selected.serialPinsRX), 'SERIAL_ID')
@@ -65,10 +65,14 @@ Blockly.Blocks['serial_setup'] = {
     var serialId_TX = this.getFieldValue('SERIAL_ID_TX');
     var serialRX=Blockly.mbed.Boards.selected.serialMapper[serialId];
     var serialTX=Blockly.mbed.Boards.selected.serialMapper[serialId_TX];
-    if(serialRX==serialTX)
+    if(serialRX==serialTX){
        this.setWarningText(null,'serial_rx_tx_mismatch');
-    else
+       this.setFieldValue('%1 Setup RX:'.replace('%1',serialRX),'SERIAL_NAME');       
+    }
+    else{
        this.setWarningText(serialRX+" mismatches "+serialTX,'serial_rx_tx_mismatch');
+       this.setFieldValue('Serial Setup RX','SERIAL_NAME');              
+    }
    },
   /**
    * Updates the content of the the serial related fields.

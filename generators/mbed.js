@@ -133,7 +133,7 @@ Blockly.mbed.init = function(workspace) {
  */
 Blockly.mbed.finish = function(code) {
   // Convert the includes, definitions, and functions dictionaries into lists
-  var includes = ['#define HIGH 1','#define LOW 0','#include "mbed.h"'], definitions = [], variables = [], functions = [];
+  var includes = ['#define HIGH 1','#define LOW 0','#include "mbed.h"',"#include <string>","typedef bool boolean;","typedef std::string String;"], definitions = [], variables = [], functions = [];
   for (var name in Blockly.mbed.includes_) {
     includes.push(Blockly.mbed.includes_[name]);
   }
