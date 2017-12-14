@@ -33,6 +33,10 @@ Blockly.Type = function(args) {
     throw new Error('The compatible types for a Blockly Types needs to be an ' +
                     'array of Blockly.Type items.');
   }
+  if ( args.typeAtom != undefined ){
+      this.typeAtom = args.typeAtom;
+      this.typeLength = args.typeLength;
+  }
   /** @type {string} */
   this.typeId = args.typeId;
   /** @type {string}

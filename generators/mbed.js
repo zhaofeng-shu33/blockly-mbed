@@ -46,6 +46,7 @@ Blockly.mbed.addReservedWords(
 /** Order of operation ENUMs. */
 Blockly.mbed.ORDER_ATOMIC = 0;         // 0 "" ...
 Blockly.mbed.ORDER_UNARY_POSTFIX = 1;  // expr++ expr-- () [] .
+Blockly.mbed.ORDER_MEMBER = 1.2;         // . []
 Blockly.mbed.ORDER_UNARY_PREFIX = 2;   // -expr !expr ~expr ++expr --expr
 Blockly.mbed.ORDER_MULTIPLICATIVE = 3; // * / % ~/
 Blockly.mbed.ORDER_ADDITIVE = 4;       // + -
@@ -59,6 +60,7 @@ Blockly.mbed.ORDER_LOGICAL_AND = 11;   // &&
 Blockly.mbed.ORDER_LOGICAL_OR = 12;    // ||
 Blockly.mbed.ORDER_CONDITIONAL = 13;   // expr ? expr : expr
 Blockly.mbed.ORDER_ASSIGNMENT = 14;    // = *= /= ~/= %= += -= <<= >>= &= ^= |=
+Blockly.mbed.ORDER_COMMA = 17;           // ,
 Blockly.mbed.ORDER_NONE = 99;          // (...)
 
 /**
@@ -391,6 +393,8 @@ Blockly.mbed.getmbedType_ = function(typeBlockly) {
       // If no block connected default to int, change for easier debugging
       //return 'ChildBlockMissing';
       return 'int';
+    case "Array":
+      return Blockly.mbed.getmbedType_(typeBlockly.typeAtom)+'['+typeBlockly.typeLength+']'; 
     default:
       return 'Invalid Blockly Type';
     }

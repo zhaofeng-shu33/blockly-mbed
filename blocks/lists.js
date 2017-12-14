@@ -65,9 +65,20 @@ Blockly.Blocks['lists_create_with'] = {
     this.setColour(Blockly.Blocks.lists.HUE);
     this.itemCount_ = 3;
     this.updateShape_();
-    this.setOutput(true, 'Array');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
     this.setMutator(new Blockly.Mutator(['lists_create_with_item']));
     this.setTooltip(Blockly.Msg.LISTS_CREATE_WITH_TOOLTIP);
+  },
+  getVarType: function(varName) {
+     /** Array type. */
+    return new Blockly.Type({
+      typeId: 'Array',
+      typeMsgName: 'ARD_TYPE_CHAR',
+      typeAtom: Blockly.Types.getChildBlockType(this),
+      typeLength: this.itemCount_,
+      compatibleTypes: []
+    }); 
   },
   /**
    * Create XML to represent list inputs.
@@ -168,6 +179,10 @@ Blockly.Blocks['lists_create_with'] = {
         var input = this.appendValueInput('ADD' + i);
         if (i == 0) {
           input.appendField(Blockly.Msg.LISTS_CREATE_WITH_INPUT_WITH);
+        }
+        if (i == 1) {
+          input.appendField('ListName:')
+               .appendField(new Blockly.FieldVariable("item"), "list_name");
         }
       }
     }
