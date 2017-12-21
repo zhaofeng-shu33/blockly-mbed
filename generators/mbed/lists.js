@@ -19,18 +19,18 @@ goog.require('Blockly.mbed');
 Blockly.mbed['lists_create_empty'] = Blockly.mbed.noGeneratorCodeInline;
 
 Blockly.mbed['lists_create_with'] = function(block) {
-  // Create a list with any number of elements of any type.
-  var elements = new Array(block.itemCount_);
-  var variable_list_name = Blockly.mbed.variableDB_.getName(block.getFieldValue('list_name'), Blockly.Variables.NAME_TYPE);
-  // initialize an array with identifier as variable_list_name, with type as ___, with length as block.itemCount_
+//  Create a list with any number of elements of any type.
+  // var elements = new Array(block.itemCount_);
+  // var variable_list_name = Blockly.mbed.variableDB_.getName(block.getFieldValue('list_name'), Blockly.Variables.NAME_TYPE);
+//  initialize an array with identifier as variable_list_name, with type as ___, with length as block.itemCount_
   
-  for (var i = 0; i < block.itemCount_; i++) {
-    elements[i] = Blockly.mbed.valueToCode(block, 'ADD' + i,
-        Blockly.mbed.ORDER_COMMA) || 'null';
-    elements[i] = '\t'+variable_list_name+'['+i+']='+elements[i]+';\n';
-  }
-  var code = 'for(int i=0;i<='+block.itemCount_+';i++){\n' + elements.join('') + '}\n';
-  return code;
+  // for (var i = 0; i < block.itemCount_; i++) {
+    // elements[i] = Blockly.mbed.valueToCode(block, 'ADD' + i,
+        // Blockly.mbed.ORDER_COMMA) || 'null';
+    // elements[i] = '\t'+variable_list_name+'['+i+']='+elements[i]+';\n';
+  // }
+  // var code = 'for(int i=0;i<='+block.itemCount_+';i++){\n' + elements.join('') + '}\n';
+   return "";
 };
 Blockly.mbed['lists_repeat'] = Blockly.mbed.noGeneratorCodeInline;
 
@@ -63,7 +63,7 @@ Blockly.mbed['lists_getIndex'] = function(block) {
       break;
     case ('LAST'):
       if (mode == 'GET') {
-        var code = list + '[last_index]';//sizeof(array_name)/sizeof(firstElement)-1
+        var code = list + '[sizeof('+list+')/sizeof('+list+'[0])-1]';//sizeof(array_name)/sizeof(firstElement)-1
         return [code, Blockly.mbed.ORDER_MEMBER];
       } else if (mode == 'GET_REMOVE') {
         var code = list + '.pop()';
@@ -119,4 +119,81 @@ Blockly.mbed['lists_getIndex'] = function(block) {
   throw 'Unhandled combination (lists_getIndex).';
 };
 
-Blockly.mbed['lists_setIndex'] = Blockly.mbed.noGeneratorCodeLine;
+Blockly.mbed['lists_setIndex'] = function(block) {
+  // Set element at index.
+  // Note: Until February 2013 this block did not have MODE or WHERE inputs.
+  var list = Blockly.mbed.valueToCode(block, 'LIST',
+      Blockly.mbed.ORDER_MEMBER) || '[]';
+  var mode = block.getFieldValue('MODE') || 'GET';
+  var where = block.getFieldValue('WHERE') || 'FROM_START';
+  var value = Blockly.mbed.valueToCode(block, 'TO',
+      Blockly.mbed.ORDER_ASSIGNMENT) || 'null';
+  // Cache non-trivial values to variables to prevent repeated look-ups.
+  // Closure, which accesses and modifies 'list'.
+  function cacheList() {
+    if (list.match(/^\w+$/)) {
+      return '';
+    }
+    var listVar = Blockly.mbed.variableDB_.getDistinctName(
+        'tmpList', Blockly.Variables.NAME_TYPE);
+    var code = 'var ' + listVar + ' = ' + list + ';\n';
+    list = listVar;
+    return code;
+  }
+  switch (where) {
+    case ('FIRST'):
+      if (mode == 'SET') {
+        return list + '[0] = ' + value + ';\n';
+      } else if (mode == 'INSERT') {
+        return list + '.unshift(' + value + ');\n';
+      }
+      break;
+    case ('LAST'):
+      if (mode == 'SET') {
+        var code = cacheList();
+        
+        code += list + '[sizeof('+list+')/sizeof('+list+'[0])-1]' +'= ' + value + ';\n';
+        return code;
+      } else if (mode == 'INSERT') {
+        return list + '.push(' + value + ');\n';
+      }
+      break;
+    case ('FROM_START'):
+      var at = Blockly.mbed.getAdjusted(block, 'AT');
+      if (mode == 'SET') {
+        return list + '[' + at + '] = ' + value + ';\n';
+      } else if (mode == 'INSERT') {
+        return list + '.splice(' + at + ', 0, ' + value + ');\n';
+      }
+      break;
+    case ('FROM_END'):
+      var at = Blockly.mbed.getAdjusted(block, 'AT', 1, false,
+          Blockly.mbed.ORDER_SUBTRACTION);
+      var code = cacheList();
+      if (mode == 'SET') {
+        code += list + '[' + list + '.length - ' + at + '] = ' + value + ';\n';
+        return code;
+      } else if (mode == 'INSERT') {
+        code += list + '.splice(' + list + '.length - ' + at + ', 0, ' + value +
+            ');\n';
+        return code;
+      }
+      break;
+    case ('RANDOM'):
+      var code = cacheList();
+      var xVar = Blockly.mbed.variableDB_.getDistinctName(
+          'tmpX', Blockly.Variables.NAME_TYPE);
+      code += 'var ' + xVar + ' = Math.floor(Math.random() * ' + list +
+          '.length);\n';
+      if (mode == 'SET') {
+        code += list + '[' + xVar + '] = ' + value + ';\n';
+        return code;
+      } else if (mode == 'INSERT') {
+        code += list + '.splice(' + xVar + ', 0, ' + value + ');\n';
+        return code;
+      }
+      break;
+  }
+  throw 'Unhandled combination (lists_setIndex).';    
+    
+};

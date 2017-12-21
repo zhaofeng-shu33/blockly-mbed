@@ -76,9 +76,22 @@ Blockly.Blocks['lists_create_with'] = {
       typeId: 'Array',
       typeMsgName: 'ARD_TYPE_CHAR',
       typeAtom: Blockly.Types.getChildBlockType(this),
+      typeContent: this.getContent(),
       typeLength: this.itemCount_,
       compatibleTypes: []
     }); 
+  },
+  getContent: function(){
+      var elements = new Array(this.itemCount_);
+      var variable_list_name = Blockly.mbed.variableDB_.getName(this.getFieldValue('list_name'), Blockly.Variables.NAME_TYPE);
+      // initialize an array with identifier as variable_list_name, with type as ___, with length as block.itemCount_
+      
+      for (var i = 0; i < this.itemCount_; i++) {
+        elements[i] = Blockly.mbed.valueToCode(this, 'ADD' + i,
+            Blockly.mbed.ORDER_COMMA) || 'null';    
+      }
+      var content = '{' + elements.join(',') + '}';      
+      return content;
   },
   /**
    * Create XML to represent list inputs.
@@ -327,15 +340,11 @@ Blockly.Blocks['lists_getIndex'] = {
    */
   init: function() {
     var MODE =
-        [[Blockly.Msg.LISTS_GET_INDEX_GET, 'GET'],
-         [Blockly.Msg.LISTS_GET_INDEX_GET_REMOVE, 'GET_REMOVE'],
-         [Blockly.Msg.LISTS_GET_INDEX_REMOVE, 'REMOVE']];
+        [[Blockly.Msg.LISTS_GET_INDEX_GET, 'GET']];
     this.WHERE_OPTIONS =
         [[Blockly.Msg.LISTS_GET_INDEX_FROM_START, 'FROM_START'],
-         [Blockly.Msg.LISTS_GET_INDEX_FROM_END, 'FROM_END'],
          [Blockly.Msg.LISTS_GET_INDEX_FIRST, 'FIRST'],
-         [Blockly.Msg.LISTS_GET_INDEX_LAST, 'LAST'],
-         [Blockly.Msg.LISTS_GET_INDEX_RANDOM, 'RANDOM']];
+         [Blockly.Msg.LISTS_GET_INDEX_LAST, 'LAST']];
     this.setHelpUrl(Blockly.Msg.LISTS_GET_INDEX_HELPURL);
     this.setColour(Blockly.Blocks.lists.HUE);
     var modeMenu = new Blockly.FieldDropdown(MODE, function(value) {
@@ -459,14 +468,11 @@ Blockly.Blocks['lists_setIndex'] = {
    */
   init: function() {
     var MODE =
-        [[Blockly.Msg.LISTS_SET_INDEX_SET, 'SET'],
-         [Blockly.Msg.LISTS_SET_INDEX_INSERT, 'INSERT']];
+        [[Blockly.Msg.LISTS_SET_INDEX_SET, 'SET']];
     this.WHERE_OPTIONS =
         [[Blockly.Msg.LISTS_GET_INDEX_FROM_START, 'FROM_START'],
-         [Blockly.Msg.LISTS_GET_INDEX_FROM_END, 'FROM_END'],
          [Blockly.Msg.LISTS_GET_INDEX_FIRST, 'FIRST'],
-         [Blockly.Msg.LISTS_GET_INDEX_LAST, 'LAST'],
-         [Blockly.Msg.LISTS_GET_INDEX_RANDOM, 'RANDOM']];
+         [Blockly.Msg.LISTS_GET_INDEX_LAST, 'LAST']];
     this.setHelpUrl(Blockly.Msg.LISTS_SET_INDEX_HELPURL);
     this.setColour(Blockly.Blocks.lists.HUE);
     this.appendValueInput('LIST')

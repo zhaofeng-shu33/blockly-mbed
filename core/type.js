@@ -36,6 +36,7 @@ Blockly.Type = function(args) {
   if ( args.typeAtom != undefined ){
       this.typeAtom = args.typeAtom;
       this.typeLength = args.typeLength;
+      this.typeContent = args.typeContent;
   }
   /** @type {string} */
   this.typeId = args.typeId;

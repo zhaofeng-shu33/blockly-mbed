@@ -49,8 +49,10 @@ Blockly.StaticTyping.prototype.collectVarsWithTypes = function(workspace) {
       // If the type comes from a variable, so it's not directly defined, it
       // returns an Array<String(block type), String(source variable name)>
       if (goog.isArray(variableType)) {
-        if (this.varTypeDict[variableType[1]]) {
+        if (this.varTypeDict[variableType[1]]) {            
           variableType = this.varTypeDict[variableType[1]];
+          if(variableType.typeAtom)
+              variableType=variableType.typeAtom;
         } else {
           // Dependant variable undefined, add this var to the pending list
           if (!goog.isArray(this.pendingVarTypeDict[variableType[1]])) {

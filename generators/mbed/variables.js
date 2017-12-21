@@ -51,6 +51,8 @@ Blockly.mbed['variables_set_type'] = function(block) {
       Blockly.mbed.ORDER_ASSIGNMENT) || '0';
   var varType = Blockly.mbed.getmbedType_(
       Blockly.Types[block.getFieldValue('VARIABLE_SETTYPE_TYPE')]);
+      if(varType==Blockly.Types.DigitalOut.typeId)
+          argument0=argument0.replace(/"/g,'')
   var code = '(' + varType + ')(' + argument0 + ')';
   return [code, Blockly.mbed.ORDER_ATOMIC];
 };

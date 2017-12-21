@@ -72,6 +72,12 @@ Blockly.Types.ARRAY = new Blockly.Type({
   compatibleTypes: []
 });
 
+/** Array/List of items. */
+Blockly.Types.DigitalOut = new Blockly.Type({
+  typeId: 'DigitalOut',
+  typeMsgName: 'ARD_TYPE_DigitalOut',
+  compatibleTypes: []
+});
 /** Null indicate there is no type. */
 Blockly.Types.NULL = new Blockly.Type({
   typeId: 'Null',

@@ -230,6 +230,10 @@ Blockly.mbed.addDeclaration = function(declarationTag, code) {
 Blockly.mbed.addVariable = function(varName, code, overwrite) {
   var overwritten = false;
   if (overwrite || (Blockly.mbed.variables_[varName] === undefined)) {
+      var codeSplit=code.split(/\s+/);
+    if(codeSplit.length==4){//code.search(/\[[0-9+]\]/)>=0
+        code=codeSplit[0]+' '+codeSplit[3].replace(';','')+'[]='+codeSplit[2]+';';
+    }
     Blockly.mbed.variables_[varName] = code;
     overwritten = true;
   }
@@ -394,7 +398,9 @@ Blockly.mbed.getmbedType_ = function(typeBlockly) {
       //return 'ChildBlockMissing';
       return 'int';
     case "Array":
-      return Blockly.mbed.getmbedType_(typeBlockly.typeAtom)+'['+typeBlockly.typeLength+']'; 
+      return Blockly.mbed.getmbedType_(typeBlockly.typeAtom)+' ['+typeBlockly.typeLength+']'+' '+typeBlockly.typeContent; 
+    case "DigitalOut":
+      return Blockly.Types.DigitalOut.typeId;
     default:
       return 'Invalid Blockly Type';
     }
@@ -408,4 +414,66 @@ Blockly.mbed.noGeneratorCodeInline = function() {
 /** Used for not-yet-implemented block code generators */
 Blockly.mbed.noGeneratorCodeLine = function() { return ''; };
 
+/**
+ * Gets a property and adjusts the value while taking into account indexing.
+ * @param {!Blockly.Block} block The block.
+ * @param {string} atId The property ID of the element to get.
+ * @param {number=} opt_delta Value to add.
+ * @param {boolean=} opt_negate Whether to negate the value.
+ * @param {number=} opt_order The highest order acting on this value.
+ * @return {string|number}
+ */
+Blockly.mbed.getAdjusted = function(block, atId, opt_delta, opt_negate,
+    opt_order) {
+  var delta = opt_delta || 0;
+  var order = opt_order || Blockly.mbed.ORDER_NONE;
+  if (block.workspace.options.oneBasedIndex) {
+    delta--;
+  }
+  var defaultAtIndex = block.workspace.options.oneBasedIndex ? '1' : '0';
+  if (delta > 0) {
+    var at = Blockly.mbed.valueToCode(block, atId,
+        Blockly.mbed.ORDER_ADDITION) || defaultAtIndex;
+  } else if (delta < 0) {
+    var at = Blockly.mbed.valueToCode(block, atId,
+        Blockly.mbed.ORDER_SUBTRACTION) || defaultAtIndex;
+  } else if (opt_negate) {
+    var at = Blockly.mbed.valueToCode(block, atId,
+        Blockly.mbed.ORDER_UNARY_NEGATION) || defaultAtIndex;
+  } else {
+    var at = Blockly.mbed.valueToCode(block, atId, order) ||
+        defaultAtIndex;
+  }
+
+  if (Blockly.isNumber(at)) {
+    // If the index is a naked number, adjust it right now.
+    at = parseFloat(at) + delta;
+    if (opt_negate) {
+      at = -at;
+    }
+  } else {
+    // If the index is dynamic, adjust it in code.
+    if (delta > 0) {
+      at = at + ' + ' + delta;
+      var innerOrder = Blockly.mbed.ORDER_ADDITION;
+    } else if (delta < 0) {
+      at = at + ' - ' + -delta;
+      var innerOrder = Blockly.mbed.ORDER_SUBTRACTION;
+    }
+    if (opt_negate) {
+      if (delta) {
+        at = '-(' + at + ')';
+      } else {
+        at = '-' + at;
+      }
+      var innerOrder = Blockly.mbed.ORDER_UNARY_NEGATION;
+    }
+    innerOrder = Math.floor(innerOrder);
+    order = Math.floor(order);
+    if (innerOrder && order >= innerOrder) {
+      at = '(' + at + ')';
+    }
+  }
+  return at;
+};
 

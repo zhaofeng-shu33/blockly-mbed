@@ -46,7 +46,9 @@ Blockly.mbed['math_arithmetic'] = function(block) {
     MINUS: [' - ', Blockly.mbed.ORDER_ADDITIVE],
     MULTIPLY: [' * ', Blockly.mbed.ORDER_MULTIPLICATIVE],
     DIVIDE: [' / ', Blockly.mbed.ORDER_MULTIPLICATIVE],
-    POWER: [null, Blockly.mbed.ORDER_NONE]  // Handle power separately.
+    POWER: [null, Blockly.mbed.ORDER_NONE],  // Handle power separately.
+    BITWISE_AND: [' & ', Blockly.mbed.ORDER_BITWISE_AND],
+    BITWISE_OR: [' | ', Blockly.mbed.ORDER_BITWISE_OR]
   };
   var tuple = OPERATORS[block.getFieldValue('OP')];
   var operator = tuple[0];
@@ -96,6 +98,9 @@ Blockly.mbed['math_single'] = function(block) {
   }
   // First, handle cases which generate values that don't need parentheses.
   switch (operator) {
+    case 'BITWISE_NOT':
+      code = '~'+ arg;
+      break;
     case 'ABS':
       code = 'abs(' + arg + ')';
       break;
