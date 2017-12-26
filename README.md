@@ -42,5 +42,8 @@ index.html is the release version of mbed-blockly.
 
 ## Reference
  
-[https://os.mbed.com/platforms/ST-Nucleo-F103RB/](https://os.mbed.com/platforms/ST-Nucleo-F103RB/)
+* [https://os.mbed.com/platforms/ST-Nucleo-F103RB/](https://os.mbed.com/platforms/ST-Nucleo-F103RB/) hardware information
 
+* [https://developer-sjc-indigo-border.mbed.org/cookbook/Homepage](https://developer-sjc-indigo-border.mbed.org/cookbook/Homepage) SDK API reference
+
+* [https://developers.google.com/blockly/guides/overview](https://developers.google.com/blockly/guides/overview) Google Blockly reference

@@ -1,0 +1,71 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="lists_create_with" id="E-=I[H+/y%B01sLX1RtE" x="13" y="38">
+    <mutation items="3"></mutation>
+    <field name="list_name">item</field>
+    <value name="ADD0">
+      <block type="variables_set_type" id="1cB[g/J#a%Q7_nt/vlH}">
+        <field name="VARIABLE_SETTYPE_TYPE">DigitalOut</field>
+        <value name="VARIABLE_SETTYPE_INPUT">
+          <block type="text" id="j#d1~vw0z`)y)k36SlTj">
+            <field name="TEXT">PA_3</field>
+          </block>
+        </value>
+      </block>
+    </value>
+    <value name="ADD1">
+      <block type="variables_set_type" id="Kq?+W./dD`i7k=:ojX{`">
+        <field name="VARIABLE_SETTYPE_TYPE">DigitalOut</field>
+        <value name="VARIABLE_SETTYPE_INPUT">
+          <block type="text" id="n3O_Im[(5T*X46Gx,n]x">
+            <field name="TEXT">PA_4</field>
+          </block>
+        </value>
+      </block>
+    </value>
+    <value name="ADD2">
+      <block type="variables_set_type" id="G5?z}1gm-9a3OBnQjY|3">
+        <field name="VARIABLE_SETTYPE_TYPE">DigitalOut</field>
+        <value name="VARIABLE_SETTYPE_INPUT">
+          <block type="text" id="Lxq[+%6Q_iVh[nKFX2;6">
+            <field name="TEXT">PA_5</field>
+          </block>
+        </value>
+      </block>
+    </value>
+    <next>
+      <block type="lists_setIndex" id="!cou7FD0}z:3=4%tC*dh">
+        <mutation at="false"></mutation>
+        <field name="MODE">SET</field>
+        <field name="WHERE">FIRST</field>
+        <value name="LIST">
+          <block type="variables_get" id="pe2KU!%TM)jdCEwilU!W">
+            <field name="VAR">item</field>
+          </block>
+        </value>
+        <value name="TO">
+          <block type="io_highlow" id="2lUJ]BBk%:`ed(4{{?oz">
+            <field name="STATE">HIGH</field>
+          </block>
+        </value>
+      </block>
+    </next>
+  </block>
+  <block type="math_arithmetic" id="%hf@Fu5iR.hV_(,[qdN?" x="63" y="263">
+    <field name="OP">ADD</field>
+    <value name="A">
+      <block type="math_number" id="H{`sMo!hYmg!5zcKhFK.">
+        <field name="NUM">2</field>
+      </block>
+    </value>
+    <value name="B">
+      <block type="math_single" id="D7[}^A*so-60E)PPi5Lb">
+        <field name="OP">BITWISE_NOT</field>
+        <value name="NUM">
+          <block type="math_number" id="UccBMW9Jl0^H!a8v}Ber">
+            <field name="NUM">3</field>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+</xml>

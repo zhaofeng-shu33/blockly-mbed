@@ -254,6 +254,24 @@
     <block type="text_isEmpty"></block>
   </category>
   <sep></sep>
+      <category id="catList" name="List">
+    <block type="lists_create_with"></block>
+    <block type="lists_getIndex">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">list</field>
+          </block>
+        </value>
+    </block>
+    <block type="lists_setIndex">
+          <value name="LIST">
+          <block type="variables_get">
+            <field name="VAR">list</field>
+          </block>
+        </value>
+    </block>    
+    </category>
+    <sep></sep>
   <category id="catVariables" name="Variables">
     <block type="variables_get"></block>
     <block type="variables_set"></block>
