@@ -1,0 +1,30 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="macro_define" id="*fb,bH)3;k]|Mqg}O^66" x="63" y="163">
+    <field name="MACRO_NAME">newMacro1</field>
+    <value name="MACRO_DEFINE_AS">
+      <block type="math_number" id="-6I~4js]^PzstxSy;kg2">
+        <field name="NUM">100</field>
+      </block>
+    </value>
+    <next>
+      <block type="macro_define" id="^y;u@TW4p|V8?T4|W2rI">
+        <field name="MACRO_NAME">newMacro2</field>
+        <value name="MACRO_DEFINE_AS">
+          <block type="math_number" id="0We?FjX{7xZsMdwHXM5Z">
+            <field name="NUM">123.3</field>
+          </block>
+        </value>
+        <next>
+          <block type="variables_set" id="TWoIm.Ns03,)CTH^pN_t">
+            <field name="VAR">item</field>
+            <value name="VALUE">
+              <block type="macro_get" id="*gE%2m0F9mL)Xp_w}(?@">
+                <field name="MACRO_NAME">newMacro1</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

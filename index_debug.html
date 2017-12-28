@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <title>BlocklyDuino</title>
-<script src="./blockly_uncompressed.js"></script>  
+<script src="./blockly_uncompressed.js"></script>
 <script src="./msg/js/en.js"></script>
 <script src="./blocks/logic.js"></script>
 <script src="./blocks/loops.js"></script>
@@ -24,6 +24,7 @@
   <script src="./blocks/mbed/time.js"></script>
   <script src="./blocks/mbed/tone.js"></script>
   <script src="./blocks/mbed/variables.js"></script>
+  <script src="./blocks/mbed/macro.js"></script>
 
   <script src="./generators/mbed.js"></script>
   <script src="./generators/mbed/boards.js"></script>
@@ -42,7 +43,7 @@
   <script src="./generators/mbed/time.js"></script>
   <script src="./generators/mbed/tone.js"></script>
   <script src="./generators/mbed/variables.js"></script>
-
+  <script src="./generators/mbed/macro.js"></script>
   <script type="text/javascript" src="index_utility.js"></script>
 <style>
     html, body {
@@ -317,6 +318,12 @@
     <block type="variables_set_type"></block>
   </category>
   <sep></sep>
+  <category id="catMacro" name="Macro">
+    <block type="macro_get"></block>
+    <block type="macro_define"></block>
+  </category>
+  <sep></sep>
+  
   <category id="catFunctions" name="Functions" custom="PROCEDURE"></category>
   <sep></sep>
   <category id="catInputOutput" name="Input/Output">

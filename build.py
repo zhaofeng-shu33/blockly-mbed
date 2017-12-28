@@ -507,5 +507,5 @@ developers.google.com/blockly/guides/modify/web/closure""")
   # This is run locally in a separate thread
   # defaultlangfiles checks for changes in the msg files, while manually asking
   # to build langfiles will force the messages to be rebuilt.
-  if ('langfiles' in args or 'defaultlangfiles' in args):
-    Gen_langfiles('langfiles' in args).start()
+  # if ('langfiles' in args or 'defaultlangfiles' in args):
+  #  Gen_langfiles('langfiles' in args).start()
