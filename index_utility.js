@@ -21,7 +21,72 @@ function resetClick() {
     //rerender
     renderContent();
 }
+function uploadCode(code, callback) {
+    var target = document.getElementById('content_mbed');
+    var spinner = new Spinner().spin(target);
 
+    var url = "http://127.0.0.1:8080/";
+    var method = "POST";
+
+    // You REALLY want async = true.
+    // Otherwise, it'll block ALL execution waiting for server response.
+    var async = true;
+
+    var request = new XMLHttpRequest();
+    
+    request.onreadystatechange = function() {
+        if (request.readyState != 4) { 
+            return; 
+        }
+        
+        spinner.stop();
+        
+        var status = parseInt(request.status); // HTTP response status, e.g., 200 for "200 OK"
+        var errorInfo = null;
+        var json_str = null;
+        switch (status) {
+        case 200:
+            json_str= request.responseText;
+            break;
+        case 0:
+            errorInfo = "code 0\n\nCould not connect to server at " + url + ".  Is the local web server running?";
+            break;
+        case 400:
+            errorInfo = "code 400\n\nBuild failed - probably due to invalid source code.  Make sure that there are no missing connections in the blocks.";
+            break;
+        case 500:
+            errorInfo = "code 500\n\nUpload failed.  Is the Arduino connected to USB port?";
+            break;
+        case 501:
+            errorInfo = "code 501\n\nUpload failed.  Is 'ino' installed and in your path?  This only works on Mac OS X and Linux at this time.";
+            break;
+        default:
+            errorInfo = "code " + status + "\n\nUnknown error.";
+            break;
+        };
+        
+        callback(status,errorInfo,json_str);
+    };
+
+    request.open(method, url, async);
+    request.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+    request.send(code);	     
+}
+function uploadClick() {
+    var code = Blockly.mbed.workspaceToCode();
+
+    alert("Ready to upload to mbed.");
+    
+    uploadCode(code, function(status, errorInfo,json_str) {
+        if (status == 200) {
+            json_obj=JSON.parse(json_str)
+            alert("Program uploaded ok, Program compiler returned "+json_obj.return_code);
+            console.log(json_obj.compiler_output)
+        } else {
+            alert("Error uploading program: " + errorInfo);
+        }
+    });
+}
 
 /**
  * Switch the visible pane when a tab is clicked.
