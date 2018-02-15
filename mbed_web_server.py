@@ -14,6 +14,7 @@ import re
 import subprocess
 import tempfile
 import urllib
+import base64
 from optparse import OptionParser
 
 
@@ -83,14 +84,15 @@ class Handler(BaseHTTPServer.BaseHTTPRequestHandler):
             rc = p.wait()
             byte_code=''
             if rc == 0: # .o file is generated, read its content.                 
-                byte_code=open(os.path.basename(dirname)+'.o','rb').read()                            
+                byte_code=open(os.path.basename(dirname)+'.o','rb').read()
             else:
                 print("mbed --upload returned %d"%rc)
             self.send_response(200)
             self.send_header("content-type","application/json;charset=utf-8")
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
-            json_response={'return_code':rc,'byte_code':byte_code,'compiler_output':''.join(buf)}#'utf8' codec can't decode byte
+            json_response={"return_code":rc,"byte_code":base64.b64encode(byte_code),\
+                "compiler_output":''.join(buf)}
             self.wfile.write(json.dumps(json_response))
         else:
             self.send_response(400)

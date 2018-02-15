@@ -22,7 +22,7 @@ function resetClick() {
     renderContent();
 }
 function uploadCode(code, callback) {
-    var target = document.getElementById('content_mbed');
+    var target = document.getElementById('whole_table');
     var spinner = new Spinner().spin(target);
 
     var url = "http://127.0.0.1:8080/";
@@ -80,8 +80,13 @@ function uploadClick() {
     uploadCode(code, function(status, errorInfo,json_str) {
         if (status == 200) {
             json_obj=JSON.parse(json_str)
-            alert("Program uploaded ok, Program compiler returned "+json_obj.return_code);
+            alert("Program uploaded ok, Program compiler returned "+json_obj.return_code);            
+            console.log('object file len: '+json_obj.byte_code.length)
+            var blob = b64toBlob(json_obj.byte_code,'octet/stream');
+            console.log('blob size: '+blob.size)
+            saveAs(blob, "project.o");
             console.log(json_obj.compiler_output)
+    // MIME:multipart/form-data
         } else {
             alert("Error uploading program: " + errorInfo);
         }
