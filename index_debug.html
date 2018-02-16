@@ -49,6 +49,9 @@
   <script type="text/javascript" src="base64.js"></script>
   <script type="text/javascript" src="FileSaver.js"></script>
   <script type="text/javascript" src="index_utility.js"></script>
+  <script type="text/javascript" src="highlight.pack.js"></script>  
+  <link rel="stylesheet" href="vs.css">
+
 <style>
     html, body {
       height: 100%;
@@ -192,9 +195,9 @@
     </tr>
   </table>
   <div id="content_blocks" class="content"></div>
-  <textarea id="content_mbed" class="content" readonly wrap="off"></textarea>
-  <textarea id="content_xml" class="content" wrap="off"></textarea>
-
+  <code id="content_mbed" class="content C++"></code>
+  <code id="content_xml" class="content XML"></code>
+  
   <xml id="toolbox" style="display: none">
   <sep></sep>
   <category id="catLogic" name="Logic">

@@ -101,7 +101,7 @@ function tabClick(clickedName) {
   // If the XML tab was open, save and render the content.
   if (document.getElementById('tab_xml').className == 'tabon') {
     var xmlTextarea = document.getElementById('content_xml');
-    var xmlText = xmlTextarea.value;
+    var xmlText = xmlTextarea.innerText;
     var xmlDom = null;
     try {
       xmlDom = Blockly.Xml.textToDom(xmlText);
@@ -157,7 +157,8 @@ function renderContent() {
     var xmlTextarea = document.getElementById('content_xml');
     var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-    xmlTextarea.value = xmlText;
+    xmlTextarea.innerText = xmlText;
+    hljs.highlightBlock(xmlTextarea);
     xmlTextarea.focus();
   /*} else if (content.id == 'content_javascript') {
     content.innerHTML = Blockly.JavaScript.workspaceToCode();
@@ -168,7 +169,14 @@ function renderContent() {
   } else if (content.id == 'content_mbed') {
     //content.innerHTML = Blockly.mbed.workspaceToCode();
     var mbedTextarea = document.getElementById('content_mbed');
-    mbedTextarea.value = Blockly.mbed.workspaceToCode(Blockly.mainWorkspace);
+    // regular expression goes here   
+    workspace_code = Blockly.mbed.workspaceToCode(Blockly.mainWorkspace);
+    workspace_code = workspace_code.replace(/</g,"&lt;");    
+    workspace_code = workspace_code.replace(/>/g,"&gt;");    
+        
+    mbedTextarea.innerHTML = workspace_code;
+    hljs.highlightBlock(mbedTextarea);
+    mbedTextarea.innerHTML = mbedTextarea.innerHTML.replace(/\r?\n/g,"<br/>");
     mbedTextarea.focus();
   }
 }
