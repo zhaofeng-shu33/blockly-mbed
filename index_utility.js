@@ -1,4 +1,14 @@
 /**
+ * @license 
+ * You may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * {@link http://www.apache.org/licenses/LICENSE-2.0}
+ * @fileoverview Manages the dom interaction of home page.
+ * @version 1.0
+ */
+
+
+/**
  * List of tab names.
  * @private
  */
@@ -6,91 +16,98 @@ var TABS_ = ['blocks', 'mbed', 'xml'];
 
 var selected = 'blocks';
 
+/** clear all blocks. */
 function resetClick() {
-    //we do not need to reset the code
-    var code = "void setup() {} void loop() {}";
+  //we do not need to reset the code
+  var code = "void setup() {} void loop() {}";
 
-    var count = Blockly.mainWorkspace.getAllBlocks().length;
-    if (count < 2 ||
-      window.confirm(Blockly.Msg.DELETE_ALL_BLOCKS.replace('%1', count))) {
+  var count = Blockly.mainWorkspace.getAllBlocks().length;
+  if (count < 2 ||
+    window.confirm(Blockly.Msg.DELETE_ALL_BLOCKS.replace('%1', count))) {
     Blockly.mainWorkspace.clear();
     if (window.location.hash) {
       window.location.hash = '';
     }
-    }
-    //rerender
-    renderContent();
+  }
+  //rerender
+  renderContent();
 }
+/**
+ * send the code to the server
+ * @param {string} code code to send to server.
+ * @param {!Function} callback callback function to call when response comes
+ */
 function uploadCode(code, callback) {
-    var target = document.getElementById('whole_table');
-    var spinner = new Spinner().spin(target);
+  var target = document.getElementById('whole_table');
+  var spinner = new Spinner().spin(target);
 
-    var url = "http://127.0.0.1:8080/";
-    var method = "POST";
+  var url = "http://127.0.0.1:8080/";
+  var method = "POST";
 
-    // You REALLY want async = true.
-    // Otherwise, it'll block ALL execution waiting for server response.
-    var async = true;
+  // You REALLY want async = true.
+  // Otherwise, it'll block ALL execution waiting for server response.
+  var async = true;
 
-    var request = new XMLHttpRequest();
-    
-    request.onreadystatechange = function() {
-        if (request.readyState != 4) { 
-            return; 
-        }
-        
-        spinner.stop();
-        
-        var status = parseInt(request.status); // HTTP response status, e.g., 200 for "200 OK"
-        var errorInfo = null;
-        var json_str = null;
-        switch (status) {
-        case 200:
-            json_str= request.responseText;
-            break;
-        case 0:
-            errorInfo = "code 0\n\nCould not connect to server at " + url + ".  Is the local web server running?";
-            break;
-        case 400:
-            errorInfo = "code 400\n\nBuild failed - probably due to invalid source code.  Make sure that there are no missing connections in the blocks.";
-            break;
-        case 500:
-            errorInfo = "code 500\n\nUpload failed.  Is the Arduino connected to USB port?";
-            break;
-        case 501:
-            errorInfo = "code 501\n\nUpload failed.  Is 'ino' installed and in your path?  This only works on Mac OS X and Linux at this time.";
-            break;
-        default:
-            errorInfo = "code " + status + "\n\nUnknown error.";
-            break;
-        };
-        
-        callback(status,errorInfo,json_str);
-    };
+  var request = new XMLHttpRequest();
 
-    request.open(method, url, async);
-    request.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
-    request.send(code);	     
+  request.onreadystatechange = function () {
+    if (request.readyState != 4) {
+      return;
+    }
+
+    spinner.stop();
+
+    var status = parseInt(request.status); // HTTP response status, e.g., 200 for "200 OK"
+    var errorInfo = null;
+    var json_str = null;
+    switch (status) {
+      case 200:
+        json_str = request.responseText;
+        break;
+      case 0:
+        errorInfo = "code 0\n\nCould not connect to server at " + url + ".  Is the local web server running?";
+        break;
+      case 400:
+        errorInfo = "code 400\n\nBuild failed - probably due to invalid source code.  Make sure that there are no missing connections in the blocks.";
+        break;
+      case 500:
+        errorInfo = "code 500\n\nUpload failed.  Is the Arduino connected to USB port?";
+        break;
+      case 501:
+        errorInfo = "code 501\n\nUpload failed.  Is 'ino' installed and in your path?  This only works on Mac OS X and Linux at this time.";
+        break;
+      default:
+        errorInfo = "code " + status + "\n\nUnknown error.";
+        break;
+    }
+
+    callback(status, errorInfo, json_str);
+  };
+
+  request.open(method, url, async);
+  request.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+  request.send(code);
 }
+/** upload the code to the server and report the result to the user */
 function uploadClick() {
-    var code = Blockly.mbed.workspaceToCode();
+  var code = Blockly.mbed.workspaceToCode();
 
-    alert("Ready to upload to mbed.");
-    
-    uploadCode(code, function(status, errorInfo,json_str) {
-        if (status == 200) {
-            json_obj=JSON.parse(json_str)
-            alert("Program uploaded ok, Program compiler returned "+json_obj.return_code);            
-            console.log('object file len: '+json_obj.byte_code.length)
-            var blob = b64toBlob(json_obj.byte_code,'octet/stream');
-            console.log('blob size: '+blob.size)
-            saveAs(blob, "project.o");
-            console.log(json_obj.compiler_output)
-    // MIME:multipart/form-data
-        } else {
-            alert("Error uploading program: " + errorInfo);
-        }
-    });
+  alert("Ready to upload to mbed.");
+
+  uploadCode(code, function (status, errorInfo, json_str) {
+    if (status == 200) {
+      var json_obj = JSON.parse(json_str);
+      alert("Program uploaded ok, Program compiler returned " + json_obj.return_code);
+      // console.log('object file len: ' + json_obj.byte_code.length);
+      var blob = b64toBlob(json_obj.byte_code, 'octet/stream');
+      // console.log('blob size: ' + blob.size);
+      saveAs(blob, "project.o");
+      // console.log(json_obj.compiler_output);
+      // MIME:multipart/form-data
+    } else {
+      alert("Error uploading program: " + errorInfo);
+    }
+  });
 }
 
 /**
@@ -107,7 +124,7 @@ function tabClick(clickedName) {
       xmlDom = Blockly.Xml.textToDom(xmlText);
     } catch (e) {
       var q =
-          window.confirm('Error parsing XML:\n' + e + '\n\nAbandon changes?');
+        window.confirm('Error parsing XML:\n' + e + '\n\nAbandon changes?');
       if (!q) {
         // Leave the user on the XML tab.
         return;
@@ -129,18 +146,18 @@ function tabClick(clickedName) {
     document.getElementById('content_' + name).style.visibility = 'hidden';
   }
 
- // Select the active tab.
+  // Select the active tab.
   selected = clickedName;
   document.getElementById('tab_' + clickedName).className = 'tabon';
   // Show the selected pane.
   document.getElementById('content_' + clickedName).style.visibility =
-      'visible';
+    'visible';
   renderContent();
   if (clickedName == 'blocks') {
     Blockly.mainWorkspace.setVisible(true);
   }
-/* some hack to remove fireUIEvent, this function may be deprecated in the new version of Blockly*/  
-    Blockly.svgResize(Blockly.mainWorkspace);
+  /* some hack to remove fireUIEvent, this function may be deprecated in the new version of Blockly*/
+  Blockly.svgResize(Blockly.mainWorkspace);
 }
 
 /**
@@ -160,23 +177,23 @@ function renderContent() {
     xmlTextarea.innerText = xmlText;
     hljs.highlightBlock(xmlTextarea);
     xmlTextarea.focus();
-  /*} else if (content.id == 'content_javascript') {
-    content.innerHTML = Blockly.JavaScript.workspaceToCode();
-  } else if (content.id == 'content_dart') {
-    content.innerHTML = Blockly.Dart.workspaceToCode();
-  } else if (content.id == 'content_python') {
-    content.innerHTML = Blockly.Python.workspaceToCode();*/
+    /*} else if (content.id == 'content_javascript') {
+      content.innerHTML = Blockly.JavaScript.workspaceToCode();
+    } else if (content.id == 'content_dart') {
+      content.innerHTML = Blockly.Dart.workspaceToCode();
+    } else if (content.id == 'content_python') {
+      content.innerHTML = Blockly.Python.workspaceToCode();*/
   } else if (content.id == 'content_mbed') {
     //content.innerHTML = Blockly.mbed.workspaceToCode();
     var mbedTextarea = document.getElementById('content_mbed');
     // regular expression goes here   
-    workspace_code = Blockly.mbed.workspaceToCode(Blockly.mainWorkspace);
-    workspace_code = workspace_code.replace(/</g,"&lt;");    
-    workspace_code = workspace_code.replace(/>/g,"&gt;");    
-        
+    var workspace_code = Blockly.mbed.workspaceToCode(Blockly.mainWorkspace);
+    workspace_code = workspace_code.replace(/</g, "&lt;");
+    workspace_code = workspace_code.replace(/>/g, "&gt;");
+
     mbedTextarea.innerHTML = workspace_code;
     hljs.highlightBlock(mbedTextarea);
-    mbedTextarea.innerHTML = mbedTextarea.innerHTML.replace(/\r?\n/g,"<br/>");
+    mbedTextarea.innerHTML = mbedTextarea.innerHTML.replace(/\r?\n/g, "<br/>");
     mbedTextarea.focus();
   }
 }
@@ -189,7 +206,9 @@ function restore_blocks() {
     Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
   }
 }
-
+/**
+ * back up code blocks to localStorage.
+ */
 function backup_blocks() {
   if ('localStorage' in window) {
     var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
@@ -228,7 +247,7 @@ function auto_save_and_restore_blocks() {
   // Init load event.
   var loadInput = document.getElementById('load');
   loadInput.addEventListener('change', load, false);
-  document.getElementById('fakeload').onclick = function() {
+  document.getElementById('fakeload').onclick = function () {
     loadInput.click();
   };
 }
@@ -257,7 +276,7 @@ function getBBox_(element) {
 }
 
 /**
- * Load blocks from local file.
+ * Load blocks from local xml file.
  */
 function load(event) {
   var files = event.target.files;
@@ -268,12 +287,13 @@ function load(event) {
 
   // FileReader
   var reader = new FileReader();
-  reader.onloadend = function(event) {
+  reader.onloadend = function (event) {
     var target = event.target;
     // 2 == FileReader.DONE
     if (target.readyState == 2) {
+      var xml;
       try {
-        var xml = Blockly.Xml.textToDom(target.result);
+        xml = Blockly.Xml.textToDom(target.result);
       } catch (e) {
         alert('Error parsing XML:\n' + e);
         return;
@@ -300,7 +320,7 @@ function init() {
   //};
 
   var container = document.getElementById('content_area');
-  var onresize = function(e) {
+  var onresize = function (e) {
     var bBox = getBBox_(container);
     for (var i = 0; i < TABS_.length; i++) {
       var el = document.getElementById('content_' + TABS_[i]);
@@ -316,21 +336,25 @@ function init() {
     // Make the 'Blocks' tab line up with the toolbox.
     if (Blockly.mainWorkspace.toolbox_.width) {
       document.getElementById('tab_blocks').style.minWidth =
-          (Blockly.mainWorkspace.toolbox_.width - 38) + 'px';
-          // Account for the 19 pixel margin and on each side.
+        (Blockly.mainWorkspace.toolbox_.width - 38) + 'px';
+      // Account for the 19 pixel margin and on each side.
     }
   };
   window.addEventListener('resize', onresize, false);
 
   var toolbox = document.getElementById('toolbox');
   Blockly.inject(document.getElementById('content_blocks'),
-      {grid:
-          {spacing: 25,
-           length: 3,
-           colour: '#ccc',
-           snap: true},
-       media: '../blockly-master/media/',
-       toolbox: toolbox});
+    {
+      grid:
+        {
+          spacing: 25,
+          length: 3,
+          colour: '#ccc',
+          snap: true
+        },
+      media: '../blockly-master/media/',
+      toolbox: toolbox
+    });
 
   auto_save_and_restore_blocks();
   onresize();
@@ -339,7 +363,7 @@ function init() {
   //load from url parameter (single param)
   //http://stackoverflow.com/questions/2090551/parse-query-string-in-javascript
   var dest = unescape(location.search.replace(/^.*\=/, '')).replace(/\+/g, " ");
-  if(dest){
+  if (dest) {
     load_by_url(dest);
   }
 }

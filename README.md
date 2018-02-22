@@ -32,7 +32,7 @@ Therefore, no depedency on closure-library is needed and the browser can read on
 
 Currently, I use nodejs "google-closure-compiler-js" modules to compress these files.
 
-use node_compressed_language.js to build "node_compressed_language.js" from msg/*
+use node_compressed_utility.js to build "node_compressed_utility.js" from msg/*
 
 use node_compressed_block.js to build "node_compressed_block.js" from blocks/*
 
