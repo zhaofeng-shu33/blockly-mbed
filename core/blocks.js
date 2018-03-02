@@ -25,3 +25,8 @@
 'use strict';
 
 goog.provide('Blockly.Blocks');
+
+/**
+ * @namespace Blockly.Blocks
+ */
+Blockly.Blocks = {};

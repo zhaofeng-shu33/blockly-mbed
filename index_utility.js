@@ -5,6 +5,7 @@
  * {@link http://www.apache.org/licenses/LICENSE-2.0}
  * @fileoverview Manages the dom interaction of home page.
  * @version 1.0
+ * Last modified on 23/02/2018 
  */
 
 
