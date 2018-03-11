@@ -5,7 +5,7 @@
  * {@link http://www.apache.org/licenses/LICENSE-2.0}
  * @fileoverview Manages the dom interaction of home page.
  * @version 1.0
- * Last modified on 23/02/2018 
+ * Last modified on 11/03/2018 
  */
 
 
@@ -133,7 +133,7 @@ function tabClick(clickedName) {
     }
     if (xmlDom) {
       Blockly.mainWorkspace.clear();
-      Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xmlDom);
+      Blockly.Xml.domToWorkspace(xmlDom,Blockly.mainWorkspace);
     }
   }
 
@@ -204,7 +204,7 @@ function renderContent() {
 function restore_blocks() {
   if ('localStorage' in window && window.localStorage.mbed) {
     var xml = Blockly.Xml.textToDom(window.localStorage.mbed);
-    Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+    Blockly.Xml.domToWorkspace(xml,Blockly.mainWorkspace);
   }
 }
 /**

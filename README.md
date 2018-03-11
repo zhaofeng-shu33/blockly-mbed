@@ -40,6 +40,29 @@ use node_compressed_generator.js to build "node_compressed_generator.js" from ge
 
 index.html is the release version of mbed-blockly.
 
+## Version
+
+The current implementation supports mbed OS 2 only. Mbed OS 5 will be considered in the future release.
+
+## Enhanced feature to core library of blockly
+
+To make Blockly support code generation of C code, we add a few js files under the folder "c_core" without changing the original code of blockly.
+
+instances.js
+field_variable.js
+field_instance.js
+block.js
+blockly.js
+
+## Keep up-to-date with upstream library
+
+To make the development up-to-date, I should manually download the latest version of [https://github.com/google/closure-compiler-js](google-closure-compiler) and [https://github.com/google/blockly](google-blockly). The former is easier to handle since all I should do is downloading the compressed library and extract it.
+For the latter (blockly), I only need parts of it. Therefore, I should manually download the following parts:
+
+* `core/*`
+* `blocks/*`
+* `msg/js/en.js`
+
 ## Reference
  
 * [https://os.mbed.com/platforms/ST-Nucleo-F103RB/](https://os.mbed.com/platforms/ST-Nucleo-F103RB/) hardware information

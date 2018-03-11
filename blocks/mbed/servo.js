@@ -1,14 +1,10 @@
 /**
- * @license Licensed under the Apache License, Version 2.0 (the "License"):
- *          http://www.apache.org/licenses/LICENSE-2.0
- */
-
-/**
+ * @license 
+ * You may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * {@link http://www.apache.org/licenses/LICENSE-2.0}
  * @fileoverview mbed blocks for the Servo library.
- *     The mbed Servo functions can be found in
- *     http://mbed.cc/en/reference/servo
- *
- * TODO: Add angle selector instead of block input.
+ * Last modified on 2/03/2018 
  */
 'use strict';
 

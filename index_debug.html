@@ -20,7 +20,6 @@
   <script src="./blocks/mbed/serial.js"></script>
   <script src="./blocks/mbed/servo.js"></script>
   <script src="./blocks/mbed/spi.js"></script>
-  <script src="./blocks/mbed/stepper.js"></script>
   <script src="./blocks/mbed/time.js"></script>
   <script src="./blocks/mbed/tone.js"></script>
   <script src="./blocks/mbed/variables.js"></script>
@@ -38,7 +37,6 @@
   <script src="./generators/mbed/serial.js"></script>
   <script src="./generators/mbed/servo.js"></script>
   <script src="./generators/mbed/spi.js"></script>
-  <script src="./generators/mbed/stepper.js"></script>
   <script src="./generators/mbed/text.js"></script>
   <script src="./generators/mbed/time.js"></script>
   <script src="./generators/mbed/tone.js"></script>
@@ -166,21 +164,12 @@
           <tr id="tabRow" height="1em">
             <td id="tab_blocks" class="tabon" onclick="tabClick('blocks')">Blocks</td>
             <td class="tabmin">&nbsp;</td>
-            <!--td id="tab_javascript" class="taboff" onclick="tabClick(this.id)">JavaScript</td>
-            <td class="tabmin">&nbsp;</td-->
-            <!--td id="tab_dart" class="taboff" onclick="tabClick(this.id)">Dart</td>
-            <td class="tabmin">&nbsp;</td>
-            <td id="tab_python" class="taboff" onclick="tabClick(this.id)">Python</td>
-            <td class="tabmin">&nbsp;</td-->
             <td id="tab_mbed" class="taboff" onclick="tabClick('mbed')">mbed</td>
             <td class="tabmin">&nbsp;</td>
             <td id="tab_xml" class="taboff" onclick="tabClick('xml')">XML</td>
             <td class="tabmax">
               <button type="button" onclick="uploadClick()">Upload</button>
               <button type="button" onclick="resetClick()">Reset</button>
-              <!--<button onclick="discard()">Discard</button>
-              <button onclick="saveCode()">Save mbed Code</button>
-              <button onclick="save()">Save XML</button>-->
                <!-- Indeed, there is no need to load xml through file reader, user can copy and paste xml code directly to XML tab page-->
               <button id="fakeload">Load XML</button>
               <input type="file" id="load" style="display: none;"/>
@@ -404,27 +393,6 @@
       </value>      
     </block>
     <block type="servo_read"></block>
-    <block type="stepper_config">
-      <field name="STEPPER_PIN1">1</field>
-      <field name="STEPPER_PIN2">2</field>
-      <value name="STEPPER_STEPS">
-        <block type="math_number">
-          <field name="NUM">100</field>
-        </block>
-      </value>
-      <value name="STEPPER_SPEED">
-        <block type="math_number">
-          <field name="NUM">10</field>
-        </block>
-      </value>
-    </block>
-    <block type="stepper_step">
-      <value name="STEPPER_STEPS">
-        <block type="math_number">
-          <field name="NUM">10</field>
-        </block>
-      </value>
-    </block>
   </category>
   <sep></sep>
   <category id="catComms" name="Comms">
