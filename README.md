@@ -56,7 +56,7 @@ blockly.js
 
 ## Keep up-to-date with upstream library
 
-To make the development up-to-date, I should manually download the latest version of [https://github.com/google/closure-compiler-js](google-closure-compiler) and [https://github.com/google/blockly](google-blockly). The former is easier to handle since all I should do is downloading the compressed library and extract it.
+To make the development up-to-date, I should manually download the latest version of [google-closure-compiler](https://github.com/google/closure-compiler-js) and [google-blockly](https://github.com/google/blockly). The former is easier to handle since all I should do is downloading the compressed library and extract it.
 For the latter (blockly), I only need parts of it. Therefore, I should manually download the following parts:
 
 * `core/*`
