@@ -27,13 +27,12 @@ Still, for developing and debugging, google [closure-library](https://github.com
 First, download a specified version [closure-library](https://github.com/google/closure-library/archive/v20171203.zip) and unzip it to the same directory with `blockly-mbed`.
 That is:
 
--- root
----- blockly-mbed
----- closure-library
-------closure
-...
+* root
+  * blockly-mbed
+  * closure-library
 
 Then open `index_debug.html` and you are done.
+
 ## Release Build
 
 We can compress the files in blocks/*, generators/* and use blockly_compressed.js. 
