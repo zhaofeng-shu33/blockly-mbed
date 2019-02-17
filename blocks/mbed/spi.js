@@ -33,7 +33,7 @@ Blockly.Blocks['spi_setup'] = {
       this.sourceBlock_.updateShape_(SPI1_CHOICE);
     });     
     this.appendDummyInput("Select")
-        .appendField(Blockly.Msg.ARD_SPI_SETUP)
+        .appendField(Blockly.Msg.MBED_SPI_SETUP)
         .appendField(dropdown, 'SPI_ID'); 
     this.appendDummyInput()
         .appendField("CS")
@@ -42,18 +42,18 @@ Blockly.Blocks['spi_setup'] = {
         .setCheck("Number")
         .appendField("Frequency(MHz)");
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_SPI_SETUP_MODE)
+        .appendField(Blockly.Msg.MBED_SPI_SETUP_MODE)
         .appendField(
             new Blockly.FieldDropdown(
-                [[Blockly.Msg.ARD_SPI_SETUP_MODE0, '0'],
-                 [Blockly.Msg.ARD_SPI_SETUP_MODE1, '1'],
-                 [Blockly.Msg.ARD_SPI_SETUP_MODE2, '2'],
-                 [Blockly.Msg.ARD_SPI_SETUP_MODE3, '3']]),
+                [[Blockly.Msg.MBED_SPI_SETUP_MODE0, '0'],
+                 [Blockly.Msg.MBED_SPI_SETUP_MODE1, '1'],
+                 [Blockly.Msg.MBED_SPI_SETUP_MODE2, '2'],
+                 [Blockly.Msg.MBED_SPI_SETUP_MODE3, '3']]),
             'SPI_MODE');
     this.setInputsInline(false);    
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);    
-    this.setTooltip(Blockly.Msg.ARD_SPI_SETUP_TIP);
+    this.setTooltip(Blockly.Msg.MBED_SPI_SETUP_TIP);
   },
   /**
    * Returns the selected SPI instance.
@@ -106,7 +106,7 @@ Blockly.Blocks['spi_transfer'] = {
    */
   init: function() {
     // Drop down list to contain all digital pins plus an option for 'none'
-    var slaveNone = [[Blockly.Msg.ARD_SPI_TRANS_NONE, 'none']];
+    var slaveNone = [[Blockly.Msg.MBED_SPI_TRANS_NONE, 'none']];
     var digitalPinsExtended = slaveNone.concat(
         Blockly.mbed.Boards.selected.digitalPins);
 
@@ -117,16 +117,16 @@ Blockly.Blocks['spi_transfer'] = {
                 Blockly.mbed.Boards.selected.spi), 'SPI_ID');
     this.appendValueInput('SPI_DATA')
         .setCheck(Blockly.Types.NUMBER.checkList)
-        .appendField(Blockly.Msg.ARD_SPI_TRANS_VAL);
+        .appendField(Blockly.Msg.MBED_SPI_TRANS_VAL);
     // this.appendDummyInput()
-        // .appendField(Blockly.Msg.ARD_SPI_TRANS_SLAVE)
+        // .appendField(Blockly.Msg.MBED_SPI_TRANS_SLAVE)
         // .appendField(
             // new Blockly.FieldDropdown(digitalPinsExtended), 'SPI_SS');
             //we only consider the microcontroller as master mode
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setTooltip(Blockly.Msg.ARD_SPI_TRANS_TIP);
+    this.setTooltip(Blockly.Msg.MBED_SPI_TRANS_TIP);
   },
   /**
    * Called whenever anything on the workspace changes.
@@ -154,7 +154,7 @@ Blockly.Blocks['spi_transfer'] = {
     }
 
     if (!setupInstancePresent) {
-      this.setWarningText(Blockly.Msg.ARD_SPI_TRANS_WARN1.replace('%1', thisInstanceName),
+      this.setWarningText(Blockly.Msg.MBED_SPI_TRANS_WARN1.replace('%1', thisInstanceName),
 								  'spi_setup');
     } else {
       this.setWarningText(null, 'spi_setup');
@@ -176,7 +176,7 @@ Blockly.Blocks['spi_transfer'] = {
     // Special case, otherwise Blockly.mbed.Boards.refreshBlockFieldDropdown
     var field = this.getField('SPI_SS');
     var fieldValue = field.getValue();
-    var slaveNone = [[Blockly.Msg.ARD_SPI_TRANS_NONE, 'none']];
+    var slaveNone = [[Blockly.Msg.MBED_SPI_TRANS_NONE, 'none']];
     field.menuGenerator_ =
         slaveNone.concat(Blockly.mbed.Boards.selected['digitalPins']);
 
@@ -188,7 +188,7 @@ Blockly.Blocks['spi_transfer'] = {
     }
     // If the old value is not present any more, add a warning to the block.
     if (!currentValuePresent) {
-      this.setWarningText(Blockly.Msg.ARD_SPI_TRANS_WARN2.replace('%1', fieldValue),
+      this.setWarningText(Blockly.Msg.MBED_SPI_TRANS_WARN2.replace('%1', fieldValue),
 			  'bPin');
     } else {
       this.setWarningText(null, 'bPin');
@@ -203,7 +203,7 @@ Blockly.Blocks['spi_transfer_return'] = {
    */
   init: function() {
     // Drop down list to contain all digital pins plus an option for 'none'
-    var slaveNone = [[Blockly.Msg.ARD_SPI_TRANS_NONE, 'none']];
+    var slaveNone = [[Blockly.Msg.MBED_SPI_TRANS_NONE, 'none']];
     var digitalPinsExtended = slaveNone.concat(
         Blockly.mbed.Boards.selected.digitalPins);
 
@@ -213,14 +213,14 @@ Blockly.Blocks['spi_transfer_return'] = {
         .appendField(new Blockly.FieldDropdown(
                 Blockly.mbed.Boards.selected.spi), 'SPI_ID');
     this.appendValueInput('SPI_DATA')
-        .appendField(Blockly.Msg.ARD_SPI_TRANS_VAL);
+        .appendField(Blockly.Msg.MBED_SPI_TRANS_VAL);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_SPI_TRANS_SLAVE)
+        .appendField(Blockly.Msg.MBED_SPI_TRANS_SLAVE)
         .appendField(
             new Blockly.FieldDropdown(digitalPinsExtended), 'SPI_SS');
     this.setInputsInline(true);
     this.setOutput(true);
-    this.setTooltip(Blockly.Msg.ARD_SPI_TRANSRETURN_TIP);
+    this.setTooltip(Blockly.Msg.MBED_SPI_TRANSRETURN_TIP);
   },
   /** Same as spi_transfer block */
   onchange: Blockly.Blocks['spi_transfer'].onchange,

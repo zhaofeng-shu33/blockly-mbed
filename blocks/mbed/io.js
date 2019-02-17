@@ -29,15 +29,15 @@ Blockly.Blocks['io_digitalwrite'] = {
     this.setHelpUrl('http://mbed.cc/en/Reference/DigitalWrite');
     this.setColour(Blockly.Blocks.io.HUE);
     this.appendValueInput('STATE')
-        .appendField(Blockly.Msg.ARD_DIGITALWRITE)
+        .appendField(Blockly.Msg.MBED_DIGITALWRITE)
         .appendField(new Blockly.FieldDropdown(
             Blockly.mbed.Boards.selected.digitalPins), 'PIN')
-        .appendField(Blockly.Msg.ARD_WRITE_TO)
+        .appendField(Blockly.Msg.MBED_WRITE_TO)
         .setCheck(Blockly.Types.BOOLEAN.checkList);
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setTooltip(Blockly.Msg.ARD_DIGITALWRITE_TIP);
+    this.setTooltip(Blockly.Msg.MBED_DIGITALWRITE_TIP);
   },
   /**
    * Updates the content of the the pin related fields.
@@ -58,11 +58,11 @@ Blockly.Blocks['io_digitalread'] = {
     this.setHelpUrl('http://mbed.cc/en/Reference/DigitalRead');
     this.setColour(Blockly.Blocks.io.HUE);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_DIGITALREAD)
+        .appendField(Blockly.Msg.MBED_DIGITALREAD)
         .appendField(new Blockly.FieldDropdown(
             Blockly.mbed.Boards.selected.digitalPins), 'PIN');
     this.setOutput(true, Blockly.Types.BOOLEAN.output);
-    this.setTooltip(Blockly.Msg.ARD_DIGITALREAD_TIP);
+    this.setTooltip(Blockly.Msg.MBED_DIGITALREAD_TIP);
   },
   /** @return {!string} The type of return value for the block, an integer. */
   getBlockType: function() {
@@ -87,7 +87,7 @@ Blockly.Blocks['io_builtin_led'] = {
     this.setHelpUrl('http://mbed.cc/en/Reference/DigitalWrite');
     this.setColour(Blockly.Blocks.io.HUE);
     this.appendValueInput('STATE')
-        .appendField(Blockly.Msg.ARD_BUILTIN_LED)
+        .appendField(Blockly.Msg.MBED_BUILTIN_LED)
         .appendField(new Blockly.FieldDropdown(
             Blockly.mbed.Boards.selected.builtinLed), 'BUILT_IN_LED')
         .appendField('to')
@@ -95,7 +95,7 @@ Blockly.Blocks['io_builtin_led'] = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setTooltip(Blockly.Msg.ARD_BUILTIN_LED_TIP);
+    this.setTooltip(Blockly.Msg.MBED_BUILTIN_LED_TIP);
   },
   /**
    * Updates the content of the the pin related fields.
@@ -120,15 +120,15 @@ Blockly.Blocks['io_analogwrite'] = {
     this.setHelpUrl('http://mbed.cc/en/Reference/AnalogWrite');
     this.setColour(Blockly.Blocks.io.HUE);
     this.appendValueInput('NUM')
-        .appendField(Blockly.Msg.ARD_ANALOGWRITE)
+        .appendField(Blockly.Msg.MBED_ANALOGWRITE)
         .appendField(new Blockly.FieldDropdown(
             Blockly.mbed.Boards.selected.pwmPins), 'PIN')
-        .appendField(Blockly.Msg.ARD_WRITE_TO)
+        .appendField(Blockly.Msg.MBED_WRITE_TO)
         .setCheck(Blockly.Types.NUMBER.output);
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setTooltip(Blockly.Msg.ARD_ANALOGWRITE_TIP);
+    this.setTooltip(Blockly.Msg.MBED_ANALOGWRITE_TIP);
   },
   /**
    * Updates the content of the the pin related fields.
@@ -152,11 +152,11 @@ Blockly.Blocks['io_analogread'] = {
     this.setHelpUrl('http://mbed.cc/en/Reference/AnalogRead');
     this.setColour(Blockly.Blocks.io.HUE);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_ANALOGREAD)
+        .appendField(Blockly.Msg.MBED_ANALOGREAD)
         .appendField(new Blockly.FieldDropdown(
             Blockly.mbed.Boards.selected.analogPins), 'PIN');
     this.setOutput(true, Blockly.Types.NUMBER.output);
-    this.setTooltip(Blockly.Msg.ARD_ANALOGREAD_TIP);
+    this.setTooltip(Blockly.Msg.MBED_ANALOGREAD_TIP);
   },
   /** @return {!string} The type of return value for the block, an integer. */
   getBlockType: function() {
@@ -181,10 +181,10 @@ Blockly.Blocks['io_highlow'] = {
     this.setColour(Blockly.Blocks.io.HUE);
     this.appendDummyInput()
         .appendField(
-            new Blockly.FieldDropdown([[Blockly.Msg.ARD_HIGH, 'HIGH'], [Blockly.Msg.ARD_LOW, 'LOW']]),
+            new Blockly.FieldDropdown([[Blockly.Msg.MBED_HIGH, 'HIGH'], [Blockly.Msg.MBED_LOW, 'LOW']]),
            'STATE');
     this.setOutput(true, Blockly.Types.BOOLEAN.output);
-    this.setTooltip(Blockly.Msg.ARD_HIGHLOW_TIP);
+    this.setTooltip(Blockly.Msg.MBED_HIGHLOW_TIP);
   },
   /** @return {!string} The type of return value for the block, an integer. */
   getBlockType: function() {
@@ -195,17 +195,17 @@ Blockly.Blocks['io_highlow'] = {
 Blockly.Blocks['io_pulsein'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_PULSEREAD);
+        .appendField(Blockly.Msg.MBED_PULSEREAD);
     this.appendValueInput("PULSETYPE")
         .setCheck(Blockly.Types.BOOLEAN.check);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_PULSEON)
+        .appendField(Blockly.Msg.MBED_PULSEON)
         .appendField(new Blockly.FieldDropdown(
             Blockly.mbed.Boards.selected.digitalPins), "PULSEPIN");
     this.setOutput(true);
     this.setInputsInline(true);
     this.setColour(Blockly.Blocks.io.HUE);
-    this.setTooltip(Blockly.Msg.ARD_PULSE_TIP);
+    this.setTooltip(Blockly.Msg.MBED_PULSE_TIP);
     this.setHelpUrl('https://www.mbed.cc/en/Reference/PulseIn');
   },
       /** @return {!string} The type of input value for the block, an integer. */
@@ -217,23 +217,23 @@ Blockly.Blocks['io_pulsein'] = {
 Blockly.Blocks['io_pulsetimeout'] = {
   init: function () {
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_PULSEREAD);
+        .appendField(Blockly.Msg.MBED_PULSEREAD);
     this.appendValueInput("PULSETYPE")
         .setCheck(Blockly.Types.BOOLEAN.check);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_PULSEON)
+        .appendField(Blockly.Msg.MBED_PULSEON)
         .appendField(new Blockly.FieldDropdown(
             Blockly.mbed.Boards.selected.digitalPins), "PULSEPIN");
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_PULSETIMEOUT);
+        .appendField(Blockly.Msg.MBED_PULSETIMEOUT);
     this.appendValueInput('TIMEOUT')
         .setCheck(Blockly.Types.NUMBER.output);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_PULSETIMEOUT_MS);
+        .appendField(Blockly.Msg.MBED_PULSETIMEOUT_MS);
     this.setOutput(true);
     this.setInputsInline(true);
     this.setColour(Blockly.Blocks.io.HUE);
-    this.setTooltip(Blockly.Msg.ARD_PULSETIMEOUT_TIP);
+    this.setTooltip(Blockly.Msg.MBED_PULSETIMEOUT_TIP);
     this.setHelpUrl('https://www.mbed.cc/en/Reference/PulseIn');
   },
         /** @return {!string} The type of input value for the block, an integer. */

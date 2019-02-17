@@ -54,18 +54,18 @@ Blockly.Blocks.serial_setup.init = function() {
         .appendField(
             new Blockly.FieldDropdown(
                 Blockly.mbed.Boards.selected.serialPinsTX), 'SERIAL_ID_TX')                
-        .appendField(Blockly.Msg.ARD_SERIAL_SPEED)
+        .appendField(Blockly.Msg.MBED_SERIAL_SPEED)
         .appendField(
             new Blockly.FieldDropdown(
                 Blockly.mbed.Boards.selected.serialSpeed), 'SPEED')
-        .appendField(Blockly.Msg.ARD_SERIAL_BPS);
+        .appendField(Blockly.Msg.MBED_SERIAL_BPS);
     this.setInputsInline(true);
     /*  previous statement can not be revised to true, otherwise this block-svg is not top-level block and
         it is very hard to detect whether the serial is initialized or not
     */
     this.setPreviousStatement(false, null);
     this.setNextStatement(true, null);    
-    this.setTooltip(Blockly.Msg.ARD_SERIAL_SETUP_TIP);
+    this.setTooltip(Blockly.Msg.MBED_SERIAL_SETUP_TIP);
 };
 /**
  * Returns the serial instance name.
@@ -146,15 +146,15 @@ Blockly.Blocks.serial_print.init = function() {
     this.appendValueInput('CONTENT')
         .setCheck(Blockly.Types.TEXT.checkList)  
         .appendField(new Blockly.FieldDropdown(Blockly.mbed.Boards.selected.serialPins), 'SERIAL_Pins')
-        .appendField(Blockly.Msg.ARD_SERIAL_PRINT);
+        .appendField(Blockly.Msg.MBED_SERIAL_PRINT);
     this.appendValueInput('CONTENT_STR')
         .setCheck(null)
         .appendField(new Blockly.FieldCheckbox('TRUE'), 'NEW_LINE')
-        .appendField(Blockly.Msg.ARD_SERIAL_PRINT_NEWLINE);
+        .appendField(Blockly.Msg.MBED_SERIAL_PRINT_NEWLINE);
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setTooltip(Blockly.Msg.ARD_SERIAL_PRINT_TIP);    
+    this.setTooltip(Blockly.Msg.MBED_SERIAL_PRINT_TIP);    
 };
 /**
  * Called whenever anything on the workspace changes.
@@ -181,7 +181,7 @@ Blockly.Blocks.serial_print.onchange = function() {
       }
     }
     if (!setupInstancePresent) {
-      this.setWarningText(Blockly.Msg.ARD_SERIAL_PRINT_WARN.replace('%1', 
+      this.setWarningText(Blockly.Msg.MBED_SERIAL_PRINT_WARN.replace('%1', 
 			    thisInstanceName), 'serial_setup');
     } else {
       this.setWarningText(null, 'serial_setup');
@@ -236,7 +236,7 @@ Blockly.Blocks.serial_getc.onchange = function() {
       }
     }
     if (!setupInstancePresent) {
-      this.setWarningText(Blockly.Msg.ARD_SERIAL_PRINT_WARN.replace('%1', 
+      this.setWarningText(Blockly.Msg.MBED_SERIAL_PRINT_WARN.replace('%1', 
 			    thisInstanceName), 'serial_setup');
     } else {
       this.setWarningText(null, 'serial_setup');

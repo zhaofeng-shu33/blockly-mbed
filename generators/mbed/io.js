@@ -110,7 +110,8 @@ Blockly.mbed['io_analogwrite'] = function(block) {
 /**
  * Function for reading an analogue pin value (X).
  * mbed code: setup { pinMode(X, INPUT); }
- *               loop  { analogRead(X)      }
+ *            loop  { analogRead(X)      }
+ *  modified on 2018/4/25
  * @param {!Blockly.Block} block Block to generate the code from.
  * @return {array} Completed code with order of operation.
  */
@@ -118,11 +119,11 @@ Blockly.mbed['io_analogread'] = function(block) {
   var pin = block.getFieldValue('PIN');
   Blockly.mbed.reservePin(
       block, pin, Blockly.mbed.PinTypes.INPUT, 'Analogue Read');
+  var ioName = 'myIO' + pin;
 
-  var pinSetupCode = 'pinMode(' + pin + ', INPUT);';
-  Blockly.mbed.addSetup('io_' + pin, pinSetupCode, false);
+  Blockly.mbed.addDeclaration('io_' + pin, 'AnalogIn ' + ioName + '(' + pin + ');');
 
-  var code = 'analogRead(' + pin + ')';
+  var code = ioName + '.read()';  
   return [code, Blockly.mbed.ORDER_ATOMIC];
 };
 

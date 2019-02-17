@@ -29,13 +29,13 @@ Blockly.Blocks['time_delay'] = {
     this.setColour(Blockly.Blocks.time.HUE);
     this.appendValueInput('DELAY_TIME_MILI')
         .setCheck(Blockly.Types.NUMBER.checkList)
-        .appendField(Blockly.Msg.ARD_TIME_DELAY);
+        .appendField(Blockly.Msg.MBED_TIME_DELAY);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_TIME_MS);
+        .appendField(Blockly.Msg.MBED_TIME_MS);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setTooltip(Blockly.Msg.ARD_TIME_DELAY_TIP);
+    this.setTooltip(Blockly.Msg.MBED_TIME_DELAY_TIP);
   }
 };
 
@@ -49,13 +49,13 @@ Blockly.Blocks['time_delaymicros'] = {
     this.setColour(Blockly.Blocks.time.HUE);
     this.appendValueInput('DELAY_TIME_MICRO')
         .setCheck(Blockly.Types.NUMBER.checkList)
-        .appendField(Blockly.Msg.ARD_TIME_DELAY);
+        .appendField(Blockly.Msg.MBED_TIME_DELAY);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_TIME_DELAY_MICROS);
+        .appendField(Blockly.Msg.MBED_TIME_DELAY_MICROS);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setTooltip(Blockly.Msg.ARD_TIME_DELAY_MICRO_TIP);
+    this.setTooltip(Blockly.Msg.MBED_TIME_DELAY_MICRO_TIP);
   }
 };
 
@@ -68,9 +68,9 @@ Blockly.Blocks['time_millis'] = {
     this.setHelpUrl('http://mbed.cc/en/Reference/Millis');
     this.setColour(Blockly.Blocks.time.HUE);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_TIME_MILLIS);
+        .appendField(Blockly.Msg.MBED_TIME_MILLIS);
     this.setOutput(true, Blockly.Types.LARGE_NUMBER.output);
-    this.setTooltip(Blockly.Msg.ARD_TIME_MILLIS_TIP);
+    this.setTooltip(Blockly.Msg.MBED_TIME_MILLIS_TIP);
   },
   /** @return {string} The type of return value for the block, an integer. */
   getBlockType: function() {
@@ -87,9 +87,9 @@ Blockly.Blocks['time_micros'] = {
     this.setHelpUrl('http://mbed.cc/en/Reference/Micros');
     this.setColour(Blockly.Blocks.time.HUE);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_TIME_MICROS);
+        .appendField(Blockly.Msg.MBED_TIME_MICROS);
     this.setOutput(true, Blockly.Types.LARGE_NUMBER.output);
-    this.setTooltip(Blockly.Msg.ARD_TIME_MICROS_TIP);
+    this.setTooltip(Blockly.Msg.MBED_TIME_MICROS_TIP);
   },
   /**
    * Should be a long (32bit), but  for for now an int.
@@ -109,9 +109,9 @@ Blockly.Blocks['infinite_loop'] = {
     this.setHelpUrl('');
     this.setColour(Blockly.Blocks.time.HUE);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_TIME_INF);
+        .appendField(Blockly.Msg.MBED_TIME_INF);
     this.setInputsInline(true);
     this.setPreviousStatement(true);
-    this.setTooltip(Blockly.Msg.ARD_TIME_INF_TIP);
+    this.setTooltip(Blockly.Msg.MBED_TIME_INF_TIP);
   }
 };

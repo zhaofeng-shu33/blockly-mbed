@@ -22,23 +22,23 @@ Blockly.Blocks.tone.HUE = 250;
 Blockly.Blocks['io_tone'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_SETTONE)
+        .appendField(Blockly.Msg.MBED_SETTONE)
         .appendField(new Blockly.FieldDropdown(
             Blockly.mbed.Boards.selected.digitalPins), "TONEPIN");
     this.appendValueInput("FREQUENCY")
         .setCheck(Blockly.Types.NUMBER.checkList)
-        .appendField(Blockly.Msg.ARD_TONEFREQ);
+        .appendField(Blockly.Msg.MBED_TONEFREQ);
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(Blockly.Blocks.tone.HUE);
-    this.setTooltip(Blockly.Msg.ARD_TONE_TIP);
+    this.setTooltip(Blockly.Msg.MBED_TONE_TIP);
     this.setHelpUrl('https://www.mbed.cc/en/Reference/tone');
   },
   onchange: function() {
     var freq = Blockly.mbed.valueToCode(this, "FREQUENCY", Blockly.mbed.ORDER_ATOMIC)
     if (freq < 31 || freq > 65535) {
-      this.setWarningText(Blockly.Msg.ARD_TONE_WARNING, 'io_tone');
+      this.setWarningText(Blockly.Msg.MBED_TONE_WARNING, 'io_tone');
     } else {
       this.setWarningText(null, 'io_tone');
     }
@@ -52,13 +52,13 @@ Blockly.Blocks['io_tone'] = {
 Blockly.Blocks['io_notone'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_NOTONE)
+        .appendField(Blockly.Msg.MBED_NOTONE)
         .appendField(new Blockly.FieldDropdown(
             Blockly.mbed.Boards.selected.digitalPins), "TONEPIN");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(Blockly.Blocks.tone.HUE);
-    this.setTooltip(Blockly.Msg.ARD_NOTONE_TIP);
+    this.setTooltip(Blockly.Msg.MBED_NOTONE_TIP);
     this.setHelpUrl('https://www.mbed.cc/en/Reference/noTone');
   },
     /** @return {!string} The type of input value for the block, an integer. */

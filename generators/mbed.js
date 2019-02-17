@@ -289,7 +289,7 @@ Blockly.mbed.addFunction = function(preferedName, code) {
 Blockly.mbed.reservePin = function(block, pin, pinType, warningTag) {
   if (Blockly.mbed.pins_[pin] !== undefined) {
     if (Blockly.mbed.pins_[pin] != pinType) {
-      block.setWarningText(Blockly.Msg.ARD_PIN_WARN1.replace('%1', pin)
+      block.setWarningText(Blockly.Msg.MBED_PIN_WARN1.replace('%1', pin)
 		.replace('%2', warningTag).replace('%3', pinType)
 		.replace('%4', Blockly.mbed.pins_[pin]), warningTag);
     } else {

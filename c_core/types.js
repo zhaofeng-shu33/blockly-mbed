@@ -16,49 +16,49 @@ goog.require('Blockly.Type');
 /** Single character. */
 Blockly.Types.CHARACTER = new Blockly.Type({
   typeId: 'Character',
-  typeMsgName: 'ARD_TYPE_CHAR',
+  typeMsgName: 'MBED_TYPE_CHAR',
   compatibleTypes: []
 });
 
 /** Text string. */
 Blockly.Types.TEXT = new Blockly.Type({
   typeId: 'Text',
-  typeMsgName: 'ARD_TYPE_TEXT',
+  typeMsgName: 'MBED_TYPE_TEXT',
   compatibleTypes: [Blockly.Types.CHARACTER]
 });
 
 /** Boolean. */
 Blockly.Types.BOOLEAN = new Blockly.Type({
   typeId: 'Boolean',
-  typeMsgName: 'ARD_TYPE_BOOL',
+  typeMsgName: 'MBED_TYPE_BOOL',
   compatibleTypes: []
 });
 
 /** Short integer number. */
 Blockly.Types.SHORT_NUMBER = new Blockly.Type({
   typeId: 'Short Number',
-  typeMsgName: 'ARD_TYPE_SHORT',
+  typeMsgName: 'MBED_TYPE_SHORT',
   compatibleTypes: []    // Circular dependencies, add after all declarations
 });
 
 /** Integer number. */
 Blockly.Types.NUMBER = new Blockly.Type({
   typeId: 'Number',
-  typeMsgName: 'ARD_TYPE_NUMBER',
+  typeMsgName: 'MBED_TYPE_NUMBER',
   compatibleTypes: []    // Circular dependencies, add after all declarations
 });
 
 /** Large integer number. */
 Blockly.Types.LARGE_NUMBER = new Blockly.Type({
   typeId: 'Large Number',
-  typeMsgName: 'ARD_TYPE_LONG',
+  typeMsgName: 'MBED_TYPE_LONG',
   compatibleTypes: []    // Circular dependencies, add after all declarations
 });
 
 /** Decimal/floating point number. */
 Blockly.Types.DECIMAL = new Blockly.Type({
   typeId: 'Decimal',
-  typeMsgName: 'ARD_TYPE_DECIMAL',
+  typeMsgName: 'MBED_TYPE_DECIMAL',
   compatibleTypes: [Blockly.Types.BOOLEAN,
                     Blockly.Types.SHORT_NUMBER,
                     Blockly.Types.NUMBER,
@@ -68,34 +68,34 @@ Blockly.Types.DECIMAL = new Blockly.Type({
 /** Array/List of items. */
 Blockly.Types.ARRAY = new Blockly.Type({
   typeId: 'Array',
-  typeMsgName: 'ARD_TYPE_ARRAY',
+  typeMsgName: 'MBED_TYPE_ARRAY',
   compatibleTypes: []
 });
 
 /** Array/List of items. */
 Blockly.Types.DigitalOut = new Blockly.Type({
   typeId: 'DigitalOut',
-  typeMsgName: 'ARD_TYPE_DigitalOut',
+  typeMsgName: 'MBED_TYPE_DigitalOut',
   compatibleTypes: []
 });
 /** Null indicate there is no type. */
 Blockly.Types.NULL = new Blockly.Type({
   typeId: 'Null',
-  typeMsgName: 'ARD_TYPE_NULL',
+  typeMsgName: 'MBED_TYPE_NULL',
   compatibleTypes: []
 });
 
 /** Type not defined, or not yet defined. */
 Blockly.Types.UNDEF = new Blockly.Type({
   typeId: 'Undefined',
-  typeMsgName: 'ARD_TYPE_UNDEF',
+  typeMsgName: 'MBED_TYPE_UNDEF',
   compatibleTypes: []
 });
 
 /** Set when no child block (meant to define the variable type) is connected. */
 Blockly.Types.CHILD_BLOCK_MISSING = new Blockly.Type({
   typeId: 'ChildBlockMissing',
-  typeMsgName: 'ARD_TYPE_CHILDBLOCKMISSING',
+  typeMsgName: 'MBED_TYPE_CHILDBLOCKMISSING',
   compatibleTypes: []
 });
 

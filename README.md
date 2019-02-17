@@ -32,11 +32,11 @@ Therefore, no depedency on closure-library is needed and the browser can read on
 
 Currently, I use nodejs "google-closure-compiler-js" modules to compress these files.
 
-use node_compressed_utility.js to build "node_compressed_utility.js" from msg/*
+use node_compress_utility.js to build "node_compressed_utility.js" from msg/*
 
-use node_compressed_block.js to build "node_compressed_block.js" from blocks/*
+use node_compress_block.js to build "node_compressed_block.js" from blocks/*
 
-use node_compressed_generator.js to build "node_compressed_generator.js" from generator/*
+use node_compress_generator.js to build "node_compressed_generator.js" from generator/*
 
 index.html is the release version of mbed-blockly.
 
@@ -61,7 +61,7 @@ For the latter (blockly), I only need parts of it. Therefore, I should manually 
 
 * `core/*`
 * `blocks/*`
-* `msg/js/en.js`
+* `msg/message.js`
 
 ## Reference
  

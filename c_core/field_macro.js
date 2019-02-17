@@ -138,8 +138,8 @@ Blockly.FieldMacro.prototype.dropdownCreate = function() {
     MacroList.push(name);
   }
   MacroList.sort(goog.string.caseInsensitiveCompare);
-  MacroList.push(Blockly.Msg.RENAME_MACRO);
-  MacroList.push(Blockly.Msg.NEW_MACRO);
+  MacroList.push(Blockly.Msg.MBED_RENAME_MACRO);
+  MacroList.push(Blockly.Msg.MBED_NEW_MACRO);
   // Macro are not language-specific, use the name as both the user-facing
   // text and the internal representation.
   var options = [];
@@ -167,8 +167,8 @@ Blockly.FieldMacro.dropdownChange = function(text) {
       // Beyond this, all names are legal.
       if (newVar) {
         newVar = newVar.replace(/[\s\xa0]+/g, ' ').replace(/^ | $/g, '');
-        if (newVar == Blockly.Msg.RENAME_MACRO ||
-            newVar == Blockly.Msg.NEW_MACRO) {
+        if (newVar == Blockly.Msg.MBED_RENAME_MACRO ||
+            newVar == Blockly.Msg.MBED_NEW_MACRO) {
           // Ok, not ALL names are legal...
           newVar = null;
         }
@@ -177,17 +177,17 @@ Blockly.FieldMacro.dropdownChange = function(text) {
     });
   }
   var workspace = this.sourceBlock_.workspace;
-  if (text == Blockly.Msg.RENAME_MACRO) {
+  if (text == Blockly.Msg.MBED_RENAME_MACRO) {
     var oldVar = this.getText();
-    promptName(Blockly.Msg.RENAME_MACRO_TITLE.replace('%1', oldVar),
+    promptName(Blockly.Msg.MBED_RENAME_MACRO_TITLE.replace('%1', oldVar),
                oldVar, function(text) {
       if (text) {
         Blockly.Macro.renameMacro(oldVar, text, workspace);
       }
     });
     return null;
-  } else if (text == Blockly.Msg.NEW_MACRO) {
-    /*promptName(Blockly.Msg.NEW_MACRO_TITLE, '', function(text) {
+  } else if (text == Blockly.Msg.MBED_NEW_MACRO) {
+    /*promptName(Blockly.Msg.MBED_NEW_MACRO_TITLE, '', function(text) {
       // Since Macro are case-insensitive, ensure that if the new Macro
       // matches with an existing Macro, the new case prevails throughout.
       if (text) {

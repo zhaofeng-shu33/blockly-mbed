@@ -30,16 +30,16 @@ Blockly.Blocks['base_map'] = {
     this.setHelpUrl('http://mbed.cc/en/Reference/map');
     this.setColour(Blockly.Blocks.map.HUE);
     this.appendValueInput('NUM')
-        .appendField(Blockly.Msg.ARD_MAP)
+        .appendField(Blockly.Msg.MBED_MAP)
         .setCheck(Blockly.Types.NUMBER.checkList);
     this.appendValueInput('DMAX')
-        .appendField(Blockly.Msg.ARD_MAP_VAL)
+        .appendField(Blockly.Msg.MBED_MAP_VAL)
         .setCheck(Blockly.Types.NUMBER.checkList);
     this.appendDummyInput()
         .appendField(']');
     this.setInputsInline(true);
     this.setOutput(true);
-    this.setTooltip(Blockly.Msg.ARD_MAP_TIP);
+    this.setTooltip(Blockly.Msg.MBED_MAP_TIP);
   },
   /** @return {string} The type of return value for the block, an integer. */
   getBlockType: function() {

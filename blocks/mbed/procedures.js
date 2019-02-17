@@ -23,14 +23,14 @@ Blockly.Blocks['mbed_functions'] = {
    */
   init: function() {
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_FUN_RUN_SETUP);
+        .appendField(Blockly.Msg.MBED_FUN_RUN_SETUP);
     this.appendStatementInput('SETUP_FUNC');
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_FUN_RUN_LOOP);
+        .appendField(Blockly.Msg.MBED_FUN_RUN_LOOP);
     this.appendStatementInput('LOOP_FUNC');
     this.setInputsInline(false);
     this.setColour(Blockly.Blocks.procedures.HUE);
-    this.setTooltip(Blockly.Msg.ARD_FUN_RUN_TIP);
+    this.setTooltip(Blockly.Msg.MBED_FUN_RUN_TIP);
     this.setHelpUrl('https://mbed.cc/en/Reference/Loop');
     this.contextMenu = false;
   },

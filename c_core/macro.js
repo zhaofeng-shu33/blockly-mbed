@@ -104,8 +104,8 @@ Blockly.Macro.flyoutCategory = function(workspace) {
   // In addition to the user's Macro, we also want to display the default
   // macro name at the top.  We also don't want this duplicated if the
   // user has created a macro of the same name.
-  goog.array.remove(macroList, Blockly.Msg.Macro_DEFAULT_NAME);
-  macroList.unshift(Blockly.Msg.Macro_DEFAULT_NAME);
+  goog.array.remove(macroList, Blockly.Msg.MBED_MACRO_DEFAULT_NAME);
+  macroList.unshift(Blockly.Msg.MBED_MACRO_DEFAULT_NAME);
 
   var xmlList = [];
   for (var i = 0; i < macroList.length; i++) {

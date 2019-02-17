@@ -40,14 +40,14 @@ Blockly.Blocks['macro_get'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.MACRO_GET_HELPURL);
+    this.setHelpUrl(Blockly.Msg.MBED_MACRO_GET_HELPURL);
     this.setColour(Blockly.Blocks.macro.HUE);
     this.appendDummyInput()
         .appendField(new Blockly.FieldMacro(
-        Blockly.Msg.MACRO_DEFAULT_NAME), 'MACRO_NAME');
+        Blockly.Msg.MBED_MACRO_DEFAULT_NAME), 'MACRO_NAME');
     this.setOutput(true);
-    this.setTooltip(Blockly.Msg.MACRO_GET_TOOLTIP);
-    this.contextMenuMsg_ = Blockly.Msg.MACRO_DEFINE_CREATE_SET;
+    this.setTooltip(Blockly.Msg.MBED_MACRO_GET_TOOLTIP);
+    this.contextMenuMsg_ = Blockly.Msg.MBED_MACRO_DEFINE_CREATE_SET;
   },
   contextMenuType_: 'macro_set',
   /**
@@ -106,14 +106,14 @@ Blockly.Blocks['macro_define'] = {
         .setCheck("Number")
         .appendField("define")
         .appendField(new Blockly.FieldMacro(
-        Blockly.Msg.MACRO_DEFAULT_NAME), 'MACRO_NAME')
+        Blockly.Msg.MBED_MACRO_DEFAULT_NAME), 'MACRO_NAME')
         .appendField("as");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);        
     this.setColour(Blockly.Blocks.macro.HUE);
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
-    this.contextMenuMsg_ = Blockly.Msg.MACRO_DEFINE_CREATE_SET;
+    this.contextMenuMsg_ = Blockly.Msg.MBED_MACRO_DEFINE_CREATE_SET;
   },   
   contextMenuType_: 'macro_get',
   customContextMenu: Blockly.Blocks['macro_get'].customContextMenu,

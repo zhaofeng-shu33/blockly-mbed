@@ -37,7 +37,7 @@ Blockly.Blocks.servo_write.init=function() {
     this.setColour(Blockly.Blocks.servo.HUE);
     this.appendValueInput('SERVO_PULSEWIDTH')
     .setCheck(Blockly.Types.NUMBER.checkList)
-    .appendField(Blockly.Msg.ARD_SERVO_WRITE)
+    .appendField(Blockly.Msg.MBED_SERVO_WRITE)
     .appendField(new Blockly.FieldDropdown(Blockly.mbed.Boards.selected.pwmPins), 'SERVO_PIN')
     .appendField('pulsewidth:');
     this.appendDummyInput()
@@ -45,7 +45,7 @@ Blockly.Blocks.servo_write.init=function() {
     this.setInputsInline(true);                
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setTooltip(Blockly.Msg.ARD_SERVO_WRITE_TIP);
+    this.setTooltip(Blockly.Msg.MBED_SERVO_WRITE_TIP);
 };
 
 /**
@@ -66,11 +66,11 @@ Blockly.Blocks.servo_write.updateFields=function() {
 Blockly.Blocks.servo_read.init= function() {
     this.setColour(Blockly.Blocks.servo.HUE);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_SERVO_READ)
+        .appendField(Blockly.Msg.MBED_SERVO_READ)
         .appendField(new Blockly.FieldDropdown(
             Blockly.mbed.Boards.selected.pwmPins), 'SERVO_PIN');
     this.setOutput(true, Blockly.Types.NUMBER.output);
-    this.setTooltip(Blockly.Msg.ARD_SERVO_READ_TIP);
+    this.setTooltip(Blockly.Msg.MBED_SERVO_READ_TIP);
 };
 
 /** 
