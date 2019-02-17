@@ -31,12 +31,12 @@ this.BLOCKLY_BOOT = function(root) {
     dir = this.BLOCKLY_DIR.match(/[^\/]+$/)[0];
   }
   // Execute after Closure has loaded.
-goog.addDependency("../../../mbed_code_generator_v2/c_core/c_blockly.js", ['Blockly.C_Blockly'], ['Blockly.StaticTyping', 'Blockly.Macro', 'Blockly.FieldMacro']);
-goog.addDependency("../../../mbed_code_generator_v2/c_core/field_macro.js", ['Blockly.FieldMacro'], ['Blockly.FieldDropdown', 'Blockly.Msg', 'Blockly.Macro', 'Blockly.utils', 'goog.string']);
-goog.addDependency("../../../mbed_code_generator_v2/c_core/macro.js", ['Blockly.Macro'], ['Blockly.Workspace', 'goog.string']);
-goog.addDependency("../../../mbed_code_generator_v2/c_core/static_typing.js", ['Blockly.StaticTyping'], ['Blockly.Block', 'Blockly.Type', 'Blockly.Types', 'Blockly.Workspace', 'goog.asserts']);
-goog.addDependency("../../../mbed_code_generator_v2/c_core/type.js", ['Blockly.Type'], ['goog.asserts']);
-goog.addDependency("../../../mbed_code_generator_v2/c_core/types.js", ['Blockly.Types'], ['Blockly.Type']);
+goog.addDependency("../../../" + dir + "/c_core/c_blockly.js", ['Blockly.C_Blockly'], ['Blockly.StaticTyping', 'Blockly.Macro', 'Blockly.FieldMacro']);
+goog.addDependency("../../../" + dir + "/c_core/field_macro.js", ['Blockly.FieldMacro'], ['Blockly.FieldDropdown', 'Blockly.Msg', 'Blockly.Macro', 'Blockly.utils', 'goog.string']);
+goog.addDependency("../../../" + dir + "/c_core/macro.js", ['Blockly.Macro'], ['Blockly.Workspace', 'goog.string']);
+goog.addDependency("../../../" + dir + "/c_core/static_typing.js", ['Blockly.StaticTyping'], ['Blockly.Block', 'Blockly.Type', 'Blockly.Types', 'Blockly.Workspace', 'goog.asserts']);
+goog.addDependency("../../../" + dir + "/c_core/type.js", ['Blockly.Type'], ['goog.asserts']);
+goog.addDependency("../../../" + dir + "/c_core/types.js", ['Blockly.Types'], ['Blockly.Type']);
 goog.addDependency("../../../" + dir + "/core/block.js", ['Blockly.Block'], ['Blockly.Blocks', 'Blockly.Comment', 'Blockly.Connection', 'Blockly.Extensions', 'Blockly.Input', 'Blockly.Mutator', 'Blockly.Warning', 'Blockly.Workspace', 'Blockly.Xml', 'goog.array', 'goog.asserts', 'goog.math.Coordinate', 'goog.string']);
 goog.addDependency("../../../" + dir + "/core/block_drag_surface.js", ['Blockly.BlockDragSurfaceSvg'], ['Blockly.utils', 'goog.asserts', 'goog.math.Coordinate']);
 goog.addDependency("../../../" + dir + "/core/block_dragger.js", ['Blockly.BlockDragger'], ['Blockly.DraggedConnectionManager', 'goog.math.Coordinate', 'goog.asserts']);
