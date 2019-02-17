@@ -22,7 +22,16 @@ The index.html favor and index_utility.js wrapper are based on BlocklyDuino whil
 
 Notice that because Ardublockly changes some functions of google blockly core, blocks and msg, the project has to use in source build. 
 
-Still, for developing and debugging, google "closure-library/" is needed but "blockly-master" branch is no longer needed.
+Still, for developing and debugging, google [closure-library](https://github.com/google/closure-library)(v20171203) is needed but "blockly-master" branch is no longer needed.
+
+First, download a specified version [closure-library](https://github.com/google/closure-library/archive/v20171203.zip) and unzip it to the same directory with `blockly-mbed`.
+That is:
+
+* root
+  * blockly-mbed
+  * closure-library
+
+Then open `index_debug.html` and you are done.
 
 ## Release Build
 
